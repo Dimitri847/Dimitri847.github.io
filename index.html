@@ -6,7 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   :root {
     --bg-main: radial-gradient(circle at top, #1b2a6b 0, #050816 45%, #02030a 100%);
@@ -58,6 +62,7 @@
     color: var(--text-muted);
   }
 
+  /* TOP BAR */
   .top-bar {
     display: flex;
     flex-wrap: wrap;
@@ -109,35 +114,7 @@
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
   }
 
-  .side-decor {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 120px;
-    height: 260px;
-    border-radius: 40px;
-    background: linear-gradient(145deg, #111827, #020617);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .side-decor.left { left: 10px; }
-  .side-decor.right { right: 10px; }
-
-  .controller-icon {
-    font-size: 3.2rem;
-    filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.9));
-    animation: pulse 2.2s infinite ease-in-out;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-  }
-
+  /* CATEGORY GRID */
   .category-grid {
     position: relative;
     z-index: 2;
@@ -166,6 +143,7 @@
     background: linear-gradient(135deg, rgba(56, 189, 248, 0.45), rgba(129, 140, 248, 0.45));
   }
 
+  /* SECTION */
   .section {
     position: relative;
     z-index: 2;
@@ -190,6 +168,7 @@
     margin-bottom: 10px;
   }
 
+  /* GAME GRID */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -197,19 +176,20 @@
     padding: 20px 40px 10px;
   }
 
+  /* GAME TILE (NO IMAGES) */
   .thumb {
     display: flex;
-    align-items: center;
-    gap: 14px;
+    align-items: flex-start;
+    gap: 18px;
     background: var(--bg-card);
-    border-radius: 16px;
-    padding: 14px 16px;
+    border-radius: 18px;
+    padding: 18px 20px;
     text-decoration: none;
     color: var(--text-main);
     cursor: pointer;
     transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border 0.22s ease;
     border: 1px solid var(--border-soft);
-    min-height: 110px;
+    min-height: 150px;
   }
 
   .thumb:hover {
@@ -219,17 +199,8 @@
     border-color: rgba(56, 189, 248, 0.8);
   }
 
-  .thumb img.game-thumb {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    object-fit: cover;
-    flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(15, 23, 42, 0.9);
-  }
-
-  .thumb span.emoji {
-    font-size: 1.6rem;
+  .thumb .emoji {
+    font-size: 2rem;
     flex-shrink: 0;
   }
 
@@ -240,24 +211,25 @@
   }
 
   .thumb .title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.4px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .thumb .meta {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     margin-top: 2px;
   }
 
   .thumb .desc {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     margin-top: 4px;
+    opacity: 0.8;
   }
 
   .badge-new {
@@ -284,626 +256,381 @@
     opacity: 1;
     transform: scale(1.1);
   }
-
-  #game-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.96);
-    display: none;
-    flex-direction: column;
-    z-index: 50;
-  }
-
-  #game-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    background: #020617;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.5);
-  }
-
-  #game-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  #game-header-left img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  #game-title {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  #game-controls {
-    display: flex;
-    gap: 8px;
-  }
-
-  .game-btn {
-    border: none;
-    border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: #0f172a;
-    color: #e5e7eb;
-    border: 1px solid rgba(148, 163, 184, 0.7);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  }
-
-  .game-btn:hover {
-    background: #111827;
-    transform: translateY(-1px);
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-  }
-
-  #game-frame-wrapper {
-    flex: 1;
-    position: relative;
-    background: #020617;
-  }
-
-  #game-frame {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .loader-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 40;
-  }
-
-  .loader {
-    border: 4px solid rgba(148, 163, 184, 0.4);
-    border-top: 4px solid var(--accent);
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    animation: spin 0.9s linear infinite;
-  }
-
-  .loader-small {
-    border-width: 3px;
-    width: 26px;
-    height: 26px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  #iframe-loader {
-    position: absolute;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: rgba(15, 23, 42, 0.85);
-    z-index: 5;
-  }
-
-  #recent-grid, #favorites-grid {
-    min-height: 40px;
-  }
-
-  .empty-text {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    padding: 10px 0 0;
-  }
-
-  @media (max-width: 768px) {
-    .side-decor { display: none; }
-    .category-grid, .grid { padding: 16px; }
-    #game-header { flex-wrap: wrap; gap: 8px; }
-  }
 </style>
 </head>
 <body>
 
-<div class="side-decor left">
-  <div class="controller-icon">🎮</div>
-</div>
-<div class="side-decor right">
-  <div class="controller-icon">🕹️</div>
-</div>
+<h1>Unblocked Sports Games Hub</h1>
+<p>Play the best unblocked sports games instantly — no images, clean emoji tiles, fast loading.</p>
 
-<h1>Unblocked Sports Games</h1>
-<p>All games load directly on this site. Search, favorite, go fullscreen, and jump between categories without ever leaving.</p>
-
+<!-- TOP BAR -->
 <div class="top-bar">
   <div class="search-box">
-    🔍
-    <input id="search-input" type="text" placeholder="Search games..." />
+    <span>🔍</span>
+    <input id="searchInput" type="text" placeholder="Search games..." />
   </div>
-  <button class="toggle-btn" id="theme-toggle">🌙 Dark / Light</button>
+
+  <button id="toggleTheme" class="toggle-btn">🌗 Theme</button>
 </div>
 
+<!-- CATEGORY GRID -->
 <div class="category-grid">
-  <a class="category" href="#popular">🔥 Popular Games</a>
-  <a class="category" href="#recent">🕒 Recently Played</a>
-  <a class="category" href="#favorites">⭐ Favorites</a>
-  <a class="category" href="#basketball">🏀 Basketball</a>
-  <a class="category" href="#soccer">⚽ Soccer</a>
-  <a class="category" href="#nfl">🏈 NFL</a>
-  <a class="category" href="#hockey">🏒 Hockey</a>
-  <a class="category" href="#athletics">🏃 Athletics</a>
-  <a class="category" href="#racing">🏎️ Racing Games</a>
-  <a class="category" href="#fighting">🥊 Fighting Games</a>
+  <a href="#popular" class="category">🔥 Popular</a>
+  <a href="#sports" class="category">⚽ Sports</a>
+  <a href="#racing" class="category">🏎️ Racing</a>
+  <a href="#action" class="category">⚔️ Action</a>
+  <a href="#puzzle" class="category">🧩 Puzzle</a>
+  <a href="#arcade" class="category">🕹️ Arcade</a>
 </div>
 
-<div id="global-loader" class="loader-overlay">
-  <div class="loader"></div>
-</div>
-
-<div class="section" id="popular">
+<!-- POPULAR SECTION -->
+<div id="popular" class="section">
   <h2>🔥 Popular Games</h2>
-  <div class="section-subtitle">Most played games across the site (no duplicates).</div>
-  <div class="grid" id="popular-grid"></div>
+  <div class="section-subtitle">Fan favorites and trending titles</div>
+  <div id="popularGrid" class="grid"></div>
 </div>
 
-<div class="section" id="recent">
-  <h2>🕒 Recently Played</h2>
-  <div class="section-subtitle">Your last few games, saved on this device.</div>
-  <div class="grid" id="recent-grid"></div>
-  <div class="empty-text" id="recent-empty">No games played yet.</div>
+<!-- SPORTS SECTION -->
+<div id="sports" class="section">
+  <h2>⚽ Sports Games</h2>
+  <div class="section-subtitle">Football, basketball, soccer, and more</div>
+  <div id="sportsGrid" class="grid"></div>
 </div>
 
-<div class="section" id="favorites">
-  <h2>⭐ Favorites</h2>
-  <div class="section-subtitle">Pin games you love and access them quickly.</div>
-  <div class="grid" id="favorites-grid"></div>
-  <div class="empty-text" id="favorites-empty">No favorites yet. Tap the ⭐ on any game.</div>
-</div>
-
-<div class="section" id="basketball">
-  <h2>🏀 Basketball</h2>
-  <div class="grid" id="basketball-grid"></div>
-</div>
-
-<div class="section" id="soccer">
-  <h2>⚽ Soccer</h2>
-  <div class="grid" id="soccer-grid"></div>
-</div>
-
-<div class="section" id="nfl">
-  <h2>🏈 NFL</h2>
-  <div class="grid" id="nfl-grid"></div>
-</div>
-
-<div class="section" id="hockey">
-  <h2>🏒 Hockey</h2>
-  <div class="grid" id="hockey-grid"></div>
-</div>
-
-<div class="section" id="athletics">
-  <h2>🏃 Athletics</h2>
-  <div class="grid" id="athletics-grid"></div>
-</div>
-
-<div class="section" id="racing">
+<!-- RACING SECTION -->
+<div id="racing" class="section">
   <h2>🏎️ Racing Games</h2>
-  <div class="grid" id="racing-grid"></div>
+  <div class="section-subtitle">Speed, drifting, and adrenaline</div>
+  <div id="racingGrid" class="grid"></div>
 </div>
 
-<div class="section" id="fighting">
-  <h2>🥊 Fighting Games</h2>
-  <div class="grid" id="fighting-grid"></div>
+<!-- ACTION SECTION -->
+<div id="action" class="section">
+  <h2>⚔️ Action Games</h2>
+  <div class="section-subtitle">Fast-paced and exciting challenges</div>
+  <div id="actionGrid" class="grid"></div>
 </div>
 
-<div id="game-overlay">
-  <div id="game-header">
-    <div id="game-header-left">
-      <img id="game-thumb" src="" alt="Game thumbnail" />
-      <div id="game-title">Loading...</div>
-    </div>
-    <div id="game-controls">
-      <button class="game-btn" id="fullscreen-btn">⛶ Fullscreen</button>
-      <button class="game-btn" id="close-btn">✕ Close</button>
+<!-- PUZZLE SECTION -->
+<div id="puzzle" class="section">
+  <h2>🧩 Puzzle Games</h2>
+  <div class="section-subtitle">Brain teasers and strategy</div>
+  <div id="puzzleGrid" class="grid"></div>
+</div>
+
+<!-- ARCADE SECTION -->
+<div id="arcade" class="section">
+  <h2>🕹️ Arcade Games</h2>
+  <div class="section-subtitle">Classic fun and quick play</div>
+  <div id="arcadeGrid" class="grid"></div>
+</div>
+
+<!-- FAVORITES SECTION -->
+<div id="favorites" class="section">
+  <h2>⭐ Favorites</h2>
+  <div class="section-subtitle">Your saved games</div>
+  <div id="favoritesGrid" class="grid"></div>
+</div>
+
+<!-- RECENTLY PLAYED SECTION -->
+<div id="recent" class="section">
+  <h2>⏱️ Recently Played</h2>
+  <div class="section-subtitle">Jump back into your last sessions</div>
+  <div id="recentGrid" class="grid"></div>
+</div>
+
+<!-- GAME OVERLAY -->
+<div id="gameOverlay" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(6px);
+  z-index:9999;
+  flex-direction:column;
+">
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--border-soft);
+  ">
+    <div id="game-title" style="font-size:1.4rem;font-weight:700;">Loading...</div>
+
+    <div style="display:flex;gap:10px;">
+      <button id="closeGame" class="toggle-btn">❌ Close</button>
+      <button id="fullscreenGame" class="toggle-btn">⛶ Fullscreen</button>
     </div>
   </div>
-  <div id="game-frame-wrapper">
-    <div id="iframe-loader" class="loader-overlay" style="position:absolute;">
-      <div class="loader loader-small"></div>
-    </div>
-    <iframe id="game-frame" src=""></iframe>
-  </div>
-</div>
 
+  <div id="iframeLoader" style="
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:1;
+    font-size:1.2rem;
+    color:var(--text-muted);
+  ">Loading game…</div>
+
+  <iframe id="gameFrame" style="width:100%;height:100%;border:none;display:none;"></iframe>
+</div>
 <script>
-  const GAMES_JSON_URL = "https://ubghyper.github.io/assets/games.json";
-  const GAME_BASE = "https://ubghyper.github.io/GameList.github.io/";
-  const IMAGE_BASE = "https://Dimitri847.github.io/images/";
+// -----------------------------
+// GAME DATA
+// -----------------------------
+const games = [
+  {
+    id: 1,
+    name: "Basketball Stars",
+    url: "https://example.com/basketballstars",
+    category: "sports",
+    tags: ["basketball", "2-player"],
+    gamedesc: "Fast-paced basketball duels.",
+    new: true
+  },
+  {
+    id: 2,
+    name: "Soccer Skills",
+    url: "https://example.com/soccerskills",
+    category: "sports",
+    tags: ["soccer", "football"],
+    gamedesc: "Skill-based soccer challenges."
+  },
+  {
+    id: 3,
+    name: "Drift Hunters",
+    url: "https://example.com/drifthunters",
+    category: "racing",
+    tags: ["drift", "cars"],
+    gamedesc: "Smooth drifting and car tuning."
+  },
+  {
+    id: 4,
+    name: "Moto X3M",
+    url: "https://example.com/motox3m",
+    category: "racing",
+    tags: ["motorbike", "stunts"],
+    gamedesc: "Motorbike stunt racing."
+  },
+  {
+    id: 5,
+    name: "Stickman Hook",
+    url: "https://example.com/stickmanhook",
+    category: "arcade",
+    tags: ["swing", "physics"],
+    gamedesc: "Swing through levels with momentum."
+  }
+];
 
-  const overlay = document.getElementById("game-overlay");
-  const gameFrame = document.getElementById("game-frame");
-  const gameTitleEl = document.getElementById("game-title");
-  const gameThumbEl = document.getElementById("game-thumb");
-  const closeBtn = document.getElementById("close-btn");
-  const fullscreenBtn = document.getElementById("fullscreen-btn");
-  const iframeLoader = document.getElementById("iframe-loader");
-  const globalLoader = document.getElementById("global-loader");
-  const searchInput = document.getElementById("search-input");
-  const themeToggle = document.getElementById("theme-toggle");
+// -----------------------------
+// EMOJI BY CATEGORY
+// -----------------------------
+function genreEmoji(game) {
+  switch (game.category) {
+    case "sports": return "⚽";
+    case "racing": return "🏎️";
+    case "action": return "⚔️";
+    case "puzzle": return "🧩";
+    case "arcade": return "🕹️";
+    default: return "🎮";
+  }
+}
 
-  const recentGrid = document.getElementById("recent-grid");
-  const recentEmpty = document.getElementById("recent-empty");
-  const favoritesGrid = document.getElementById("favorites-grid");
-  const favoritesEmpty = document.getElementById("favorites-empty");
+// -----------------------------
+// CREATE GAME TILE (NO IMAGES)
+// -----------------------------
+function createGameTile(game) {
+  const tile = document.createElement("div");
+  tile.className = "thumb";
 
-  const catGrids = {
-    basketball: document.getElementById("basketball-grid"),
-    soccer: document.getElementById("soccer-grid"),
-    nfl: document.getElementById("nfl-grid"),
-    hockey: document.getElementById("hockey-grid"),
-    athletics: document.getElementById("athletics-grid"),
-    racing: document.getElementById("racing-grid"),
-    fighting: document.getElementById("fighting-grid")
+  const emoji = document.createElement("span");
+  emoji.className = "emoji";
+  emoji.textContent = genreEmoji(game);
+
+  const wrap = document.createElement("div");
+  wrap.className = "title-wrap";
+
+  const title = document.createElement("span");
+  title.className = "title";
+  title.textContent = game.name;
+
+  const meta = document.createElement("span");
+  meta.className = "meta";
+  meta.textContent = (game.tags || []).slice(0, 2).join(" • ");
+
+  const desc = document.createElement("span");
+  desc.className = "desc";
+  desc.textContent = game.gamedesc || "";
+
+  wrap.appendChild(title);
+  wrap.appendChild(meta);
+  wrap.appendChild(desc);
+
+  const fav = document.createElement("span");
+  fav.className = "fav-icon";
+  fav.innerHTML = "⭐";
+  fav.onclick = (e) => {
+    e.stopPropagation();
+    toggleFavorite(game.id);
+    fav.classList.toggle("active");
   };
 
-  const catEmoji = {
-    basketball: "🏀",
-    soccer: "⚽",
-    nfl: "🏈",
-    hockey: "🏒",
-    athletics: "🏃",
-    racing: "🏎️",
-    fighting: "🥊"
-  };
+  tile.appendChild(emoji);
+  tile.appendChild(wrap);
+  tile.appendChild(fav);
 
-  let allGames = [];
-  let favorites = [];
-  let recent = [];
+  tile.onclick = () => openGame(game);
 
-  function loadLocalState() {
-    try {
-      favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-      recent = JSON.parse(localStorage.getItem("recent") || "[]");
-    } catch {
-      favorites = [];
-      recent = [];
-    }
+  return tile;
+}
+
+// -----------------------------
+// LOAD CATEGORY GRIDS
+// -----------------------------
+function loadCategory(cat, gridId) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = "";
+
+  games
+    .filter(g => g.category === cat)
+    .forEach(g => grid.appendChild(createGameTile(g)));
+}
+
+function loadPopular() {
+  const grid = document.getElementById("popularGrid");
+  grid.innerHTML = "";
+  games.slice(0, 4).forEach(g => grid.appendChild(createGameTile(g)));
+}
+
+// -----------------------------
+// FAVORITES
+// -----------------------------
+function getFavorites() {
+  return JSON.parse(localStorage.getItem("favorites") || "[]");
+}
+
+function isFavorite(id) {
+  return getFavorites().includes(id);
+}
+
+function toggleFavorite(id) {
+  let favs = getFavorites();
+  if (favs.includes(id)) {
+    favs = favs.filter(f => f !== id);
+  } else {
+    favs.push(id);
   }
+  localStorage.setItem("favorites", JSON.stringify(favs));
+  loadFavorites();
+}
 
-  function saveLocalState() {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    localStorage.setItem("recent", JSON.stringify(recent));
-  }
+function loadFavorites() {
+  const grid = document.getElementById("favoritesGrid");
+  grid.innerHTML = "";
 
-  function isFavorite(id) {
-    return favorites.includes(id);
-  }
+  getFavorites()
+    .map(id => games.find(g => g.id === id))
+    .filter(Boolean)
+    .forEach(g => grid.appendChild(createGameTile(g)));
+}
 
-  function toggleFavorite(id) {
-    if (isFavorite(id)) {
-      favorites = favorites.filter(x => x !== id);
-    } else {
-      favorites.push(id);
-    }
-    saveLocalState();
-    renderFavorites();
-    document.querySelectorAll(`[data-fav-id="${CSS.escape(id)}"]`).forEach(el => {
-      el.classList.toggle("active", isFavorite(id));
+// -----------------------------
+// RECENTLY PLAYED
+// -----------------------------
+function getRecent() {
+  return JSON.parse(localStorage.getItem("recent") || "[]");
+}
+
+function addRecent(id) {
+  let recent = getRecent().filter(r => r !== id);
+  recent.unshift(id);
+  recent = recent.slice(0, 10);
+  localStorage.setItem("recent", JSON.stringify(recent));
+  loadRecent();
+}
+
+function loadRecent() {
+  const grid = document.getElementById("recentGrid");
+  grid.innerHTML = "";
+
+  getRecent()
+    .map(id => games.find(g => g.id === id))
+    .filter(Boolean)
+    .forEach(g => grid.appendChild(createGameTile(g)));
+}
+
+// -----------------------------
+// SEARCH
+// -----------------------------
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const q = e.target.value.toLowerCase();
+  const allGrids = document.querySelectorAll(".grid");
+
+  allGrids.forEach(grid => grid.innerHTML = "");
+
+  games
+    .filter(g =>
+      g.name.toLowerCase().includes(q) ||
+      g.tags.join(" ").toLowerCase().includes(q)
+    )
+    .forEach(g => {
+      const grid = document.getElementById("popularGrid");
+      grid.appendChild(createGameTile(g));
     });
-  }
+});
 
-  function addRecent(id) {
-    recent = recent.filter(x => x !== id);
-    recent.unshift(id);
-    if (recent.length > 12) recent = recent.slice(0, 12);
-    saveLocalState();
-    renderRecent();
-  }
+// -----------------------------
+// GAME OVERLAY
+// -----------------------------
+const overlay = document.getElementById("gameOverlay");
+const gameFrame = document.getElementById("gameFrame");
+const iframeLoader = document.getElementById("iframeLoader");
+const gameTitleEl = document.getElementById("game-title");
 
-  function classifyGame(game) {
-    const name = (game.name || "").toLowerCase();
-    const tags = (game.tags || []).join(" ").toLowerCase();
-    const haystack = name + " " + tags;
+function openGame(game) {
+  overlay.style.display = "flex";
+  gameTitleEl.textContent = game.name;
+  iframeLoader.style.display = "flex";
+  gameFrame.style.display = "none";
 
-    const isBasketball = /basketball|hoops|bball/.test(haystack);
-    const isSoccer = /soccer|football \(soccer\)|futbol|penalty/.test(haystack);
-    const isNFL = /nfl|american football|retro bowl|touchdown|gridiron/.test(haystack);
-    const isHockey = /hockey/.test(haystack);
-    const isRacing = /race|racing|car|driving|drift|kart|drive|rider|bike|moto/.test(haystack);
-    const isFighting = /fight|fighting|brawl|boxing|punch|arena|warrior/.test(haystack);
-    const isAthletics = /run|runner|track|dash|sprint|jump|hurdle|marathon/.test(haystack);
+  gameFrame.src = game.url;
 
-    return {
-      basketball: isBasketball,
-      soccer: isSoccer,
-      nfl: isNFL,
-      hockey: isHockey,
-      racing: isRacing,
-      fighting: isFighting,
-      athletics: isAthletics
-    };
-  }
-
-  function genreEmoji(game) {
-    const tags = (game.tags || []).map(t => t.toLowerCase());
-    if (tags.includes("puzzle")) return "🧠";
-    if (tags.includes("shooter") || tags.includes("fps")) return "🔫";
-    if (tags.includes("driving") || tags.includes("racing")) return "🚗";
-    if (tags.includes("sandbox")) return "🧪";
-    if (tags.includes("strategy") || tags.includes("tower defense")) return "♟️";
-    if (tags.includes("creative")) return "🎨";
-    if (tags.includes("physics")) return "🧲";
-    if (tags.includes("idle") || tags.includes("clicker")) return "🖱️";
-    if (tags.includes("simulation")) return "🧬";
-    if (tags.includes("adventure")) return "🗺️";
-    return "🎮";
-  }
-
-  function buildGameUrl(game) {
-    if (game.url && game.url.startsWith("http")) return game.url;
-    return GAME_BASE + game.url + "/";
-  }
-
-  function buildImageUrl(game) {
-    if (!game.image) return IMAGE_BASE + "default.png";
-    return IMAGE_BASE + game.image;
-  }
-
-  function getGameId(game) {
-    return game.url || game.name;
-  }
-
-  function getPlays(game) {
-    let base = 0;
-    if (game.new) base += 50;
-    base += (game.name || "").length;
-    return base;
-  }
-
-  function createGameTile(game, categoryEmoji) {
-    const id = getGameId(game);
-
-    const gridItem = document.createElement("div");
-    gridItem.className = "thumb";
-    gridItem.dataset.gameId = id.toString();
-    gridItem.title = game.gamedesc || "";
-
-    const img = document.createElement("img");
-    img.className = "game-thumb";
-    img.src = buildImageUrl(game);
-    img.alt = game.name || "Game";
-
-    const emojiSpan = document.createElement("span");
-    emojiSpan.className = "emoji";
-    emojiSpan.textContent = categoryEmoji || genreEmoji(game);
-
-    const titleWrap = document.createElement("div");
-    titleWrap.className = "title-wrap";
-
-    const titleLine = document.createElement("div");
-
-    const titleSpan = document.createElement("span");
-    titleSpan.className = "title";
-    titleSpan.textContent = game.name || "Untitled";
-
-    titleLine.appendChild(titleSpan);
-
-    if (game.new) {
-      const badge = document.createElement("span");
-      badge.className = "badge-new";
-      badge.textContent = "NEW";
-      titleLine.appendChild(badge);
-    }
-
-    const metaSpan = document.createElement("span");
-    metaSpan.className = "meta";
-    metaSpan.textContent = (game.tags || []).slice(0, 2).join(" • ");
-
-    const descSpan = document.createElement("span");
-    descSpan.className = "desc";
-    descSpan.textContent = game.gamedesc || "";
-
-    titleWrap.appendChild(titleLine);
-    titleWrap.appendChild(metaSpan);
-    titleWrap.appendChild(descSpan);
-
-    const fav = document.createElement("span");
-    fav.className = "fav-icon";
-    fav.innerHTML = "⭐";
-    fav.dataset.favId = id.toString();
-    if (isFavorite(id)) fav.classList.add("active");
-
-    fav.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleFavorite(id);
-    });
-
-    gridItem.appendChild(img);
-    gridItem.appendChild(emojiSpan);
-    gridItem.appendChild(titleWrap);
-    gridItem.appendChild(fav);
-
-    gridItem.addEventListener("click", () => openGame(game));
-
-    return gridItem;
-  }
-
-  function openGame(game) {
-    const url = buildGameUrl(game);
-    const img = buildImageUrl(game);
-    const title = game.name || "Game";
-    const id = getGameId(game);
-
-    gameFrame.src = "";
-    iframeLoader.style.display = "flex";
-    gameFrame.src = url;
-    gameTitleEl.textContent = title;
-    gameThumbEl.src = img;
-
-    overlay.style.display = "flex";
-    addRecent(id);
-  }
-
-  function closeGame() {
-    overlay.style.display = "none";
-    gameFrame.src = "";
-  }
-
-  function toggleFullscreen() {
-    const elem = document.getElementById("game-frame-wrapper");
-
-    if (!document.fullscreenElement) {
-      if (elem.requestFullscreen) elem.requestFullscreen();
-      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-    } else {
-      if (document.exitFullscreen) document.exitFullscreen();
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-      else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
-  }
-
-  closeBtn.addEventListener("click", closeGame);
-  fullscreenBtn.addEventListener("click", toggleFullscreen);
-
-  gameFrame.addEventListener("load", () => {
+  gameFrame.onload = () => {
     iframeLoader.style.display = "none";
-  });
+    gameFrame.style.display = "block";
+  };
 
-  function renderFavorites() {
-    favoritesGrid.innerHTML = "";
-    const favGames = allGames.filter(g => favorites.includes(getGameId(g)));
-    if (!favGames.length) {
-      favoritesEmpty.style.display = "block";
-      return;
-    }
-    favoritesEmpty.style.display = "none";
-    favGames.forEach(game => {
-      const flags = classifyGame(game);
-      const cat =
-        (flags.basketball && "basketball") ||
-        (flags.soccer && "soccer") ||
-        (flags.nfl && "nfl") ||
-        (flags.hockey && "hockey") ||
-        (flags.athletics && "athletics") ||
-        (flags.racing && "racing") ||
-        (flags.fighting && "fighting") ||
-        null;
-      const emoji = cat ? catEmoji[cat] : genreEmoji(game);
-      favoritesGrid.appendChild(createGameTile(game, emoji));
-    });
-  }
+  addRecent(game.id);
+}
 
-  function renderRecent() {
-    recentGrid.innerHTML = "";
-    const recentGames = recent
-      .map(id => allGames.find(g => getGameId(g) === id))
-      .filter(Boolean);
-    if (!recentGames.length) {
-      recentEmpty.style.display = "block";
-      return;
-    }
-    recentEmpty.style.display = "none";
-    recentGames.forEach(game => {
-      const flags = classifyGame(game);
-      const cat =
-        (flags.basketball && "basketball") ||
-        (flags.soccer && "soccer") ||
-        (flags.nfl && "nfl") ||
-        (flags.hockey && "hockey") ||
-        (flags.athletics && "athletics") ||
-        (flags.racing && "racing") ||
-        (flags.fighting && "fighting") ||
-        null;
-      const emoji = cat ? catEmoji[cat] : genreEmoji(game);
-      recentGrid.appendChild(createGameTile(game, emoji));
-    });
-  }
+document.getElementById("closeGame").onclick = () => {
+  overlay.style.display = "none";
+  gameFrame.src = "";
+};
 
-  function applySearchFilter() {
-    const q = searchInput.value.trim().toLowerCase();
-    const tiles = document.querySelectorAll(".thumb");
-    tiles.forEach(tile => {
-      const id = tile.dataset.gameId;
-      const game = allGames.find(g => getGameId(g) === id);
-      if (!game) return;
-      const text = (game.name + " " + (game.tags || []).join(" ") + " " + (game.gamedesc || "")).toLowerCase();
-      tile.style.display = text.includes(q) ? "" : "none";
-    });
-  }
+document.getElementById("fullscreenGame").onclick = () => {
+  if (gameFrame.requestFullscreen) gameFrame.requestFullscreen();
+};
 
-  searchInput.addEventListener("input", applySearchFilter);
+// -----------------------------
+// THEME TOGGLE
+// -----------------------------
+document.getElementById("toggleTheme").onclick = () => {
+  document.body.classList.toggle("light");
+};
 
-  function initTheme() {
-    const saved = localStorage.getItem("theme") || "dark";
-    if (saved === "light") document.body.classList.add("light");
-  }
-
-  function toggleTheme() {
-    document.body.classList.toggle("light");
-    const mode = document.body.classList.contains("light") ? "light" : "dark";
-    localStorage.setItem("theme", mode);
-  }
-
-  themeToggle.addEventListener("click", toggleTheme);
-
-  async function init() {
-    initTheme();
-    loadLocalState();
-
-    try {
-      const res = await fetch(GAMES_JSON_URL);
-      const data = await res.json();
-      allGames = Array.isArray(data) ? data : data.games || [];
-
-      const sortedByPlays = [...allGames].sort((a, b) => getPlays(b) - getPlays(a));
-      const popularGrid = document.getElementById("popular-grid");
-      const usedInPopular = new Set();
-
-      sortedByPlays.forEach(game => {
-        if (popularGrid.children.length >= 20) return;
-        const id = getGameId(game);
-        if (usedInPopular.has(id)) return;
-        usedInPopular.add(id);
-        const emoji = genreEmoji(game);
-        const tile = createGameTile(game, emoji);
-        popularGrid.appendChild(tile);
-      });
-
-      allGames.forEach(game => {
-        const flags = classifyGame(game);
-        Object.keys(flags).forEach(cat => {
-          if (!flags[cat]) return;
-          const grid = catGrids[cat];
-          if (!grid) return;
-          const tile = createGameTile(game, catEmoji[cat] || genreEmoji(game));
-          grid.appendChild(tile);
-        });
-      });
-
-      renderFavorites();
-      renderRecent();
-    } catch (err) {
-      console.error("Failed to load games.json", err);
-    } finally {
-      globalLoader.style.display = "none";
-    }
-  }
-
-  init();
+// -----------------------------
+// INITIAL LOAD
+// -----------------------------
+loadPopular();
+loadCategory("sports", "sportsGrid");
+loadCategory("racing", "racingGrid");
+loadCategory("action", "actionGrid");
+loadCategory("puzzle", "puzzleGrid");
+loadCategory("arcade", "arcadeGrid");
+loadFavorites();
+loadRecent();
 </script>
-</body>
-</html>
+
