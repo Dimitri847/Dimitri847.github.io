@@ -419,6 +419,13 @@
 </head>
 <body>
 
+<div class="side-decor left">
+  <div class="controller-icon">🎮</div>
+</div>
+<div class="side-decor right">
+  <div class="controller-icon">🕹️</div>
+</div>
+
 <h1>Unblocked Sports Games</h1>
 <p>All games load directly on this site. Search, favorite, go fullscreen, and jump between categories without ever leaving.</p>
 
@@ -666,74 +673,74 @@
     return base;
   }
 
-  function function createGameTile(game, categoryEmoji) {
-  const id = getGameId(game);
+  function createGameTile(game, categoryEmoji) {
+    const id = getGameId(game);
 
-  const gridItem = document.createElement("div");
-  gridItem.className = "thumb";
-  gridItem.dataset.gameId = id.toString();
-  gridItem.title = game.gamedesc || "";
+    const gridItem = document.createElement("div");
+    gridItem.className = "thumb";
+    gridItem.dataset.gameId = id.toString();
+    gridItem.title = game.gamedesc || "";
 
-  const emojiSpan = document.createElement("span");
-  emojiSpan.className = "emoji";
-  emojiSpan.style.fontSize = "2rem";
-  emojiSpan.textContent = categoryEmoji || genreEmoji(game);
+    const img = document.createElement("img");
+    img.className = "game-thumb";
+    img.src = buildImageUrl(game);
+    img.alt = game.name || "Game";
 
-  const titleWrap = document.createElement("div");
-  titleWrap.className = "title-wrap";
+    const emojiSpan = document.createElement("span");
+    emojiSpan.className = "emoji";
+    emojiSpan.textContent = categoryEmoji || genreEmoji(game);
 
-  const titleLine = document.createElement("div");
+    const titleWrap = document.createElement("div");
+    titleWrap.className = "title-wrap";
 
-  const titleSpan = document.createElement("span");
-  titleSpan.className = "title";
-  titleSpan.style.fontSize = "1.4rem";
-  titleSpan.style.fontWeight = "800";
-  titleSpan.style.letterSpacing = "0.6px";
-  titleSpan.textContent = game.name || "Untitled";
+    const titleLine = document.createElement("div");
 
-  titleLine.appendChild(titleSpan);
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "title";
+    titleSpan.textContent = game.name || "Untitled";
 
-  if (game.new) {
-    const badge = document.createElement("span");
-    badge.className = "badge-new";
-    badge.textContent = "NEW";
-    titleLine.appendChild(badge);
+    titleLine.appendChild(titleSpan);
+
+    if (game.new) {
+      const badge = document.createElement("span");
+      badge.className = "badge-new";
+      badge.textContent = "NEW";
+      titleLine.appendChild(badge);
+    }
+
+    const metaSpan = document.createElement("span");
+    metaSpan.className = "meta";
+    metaSpan.textContent = (game.tags || []).slice(0, 2).join(" • ");
+
+    const descSpan = document.createElement("span");
+    descSpan.className = "desc";
+    descSpan.textContent = game.gamedesc || "";
+
+    titleWrap.appendChild(titleLine);
+    titleWrap.appendChild(metaSpan);
+    titleWrap.appendChild(descSpan);
+
+    const fav = document.createElement("span");
+    fav.className = "fav-icon";
+    fav.innerHTML = "⭐";
+    fav.dataset.favId = id.toString();
+    if (isFavorite(id)) fav.classList.add("active");
+
+    fav.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite(id);
+    });
+
+    gridItem.appendChild(img);
+    gridItem.appendChild(emojiSpan);
+    gridItem.appendChild(titleWrap);
+    gridItem.appendChild(fav);
+
+    gridItem.addEventListener("click", () => openGame(game));
+
+    return gridItem;
   }
 
-  const metaSpan = document.createElement("span");
-  metaSpan.className = "meta";
-  metaSpan.style.fontSize = "0.9rem";
-  metaSpan.textContent = (game.tags || []).slice(0, 2).join(" • ");
-
-  const descSpan = document.createElement("span");
-  descSpan.className = "desc";
-  descSpan.style.fontSize = "0.8rem";
-  descSpan.style.opacity = "0.8";
-  descSpan.textContent = game.gamedesc || "";
-
-  titleWrap.appendChild(titleLine);
-  titleWrap.appendChild(metaSpan);
-  titleWrap.appendChild(descSpan);
-
-  const fav = document.createElement("span");
-  fav.className = "fav-icon";
-  fav.innerHTML = "⭐";
-  fav.dataset.favId = id.toString();
-  if (isFavorite(id)) fav.classList.add("active");
-
-  fav.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleFavorite(id);
-  });
-
-  gridItem.appendChild(emojiSpan);
-  gridItem.appendChild(titleWrap);
-  gridItem.appendChild(fav);
-
-  gridItem.addEventListener("click", () => openGame(game));
-
-  return gridItem;
-}
   function openGame(game) {
     const url = buildGameUrl(game);
     const img = buildImageUrl(game);
