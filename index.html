@@ -2,40 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Unblopcked Sports Games</title>
+<title>Unblocked Sports Games</title>
 
 <style>
-  /* GLOBAL */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Poppins", sans-serif; background: #001f3f; color: #ffffff; }
 
-  body {
-    font-family: "Poppins", sans-serif;
-    background: #001f3f;
-    color: #ffffff;
-  }
+  h1, h2 { text-align: center; font-weight: 700; }
+  h1 { margin-top: 25px; font-size: 3rem; }
+  p { text-align: center; opacity: 0.9; max-width: 800px; margin: 10px auto 30px; }
 
-  h1, h2 {
-    text-align: center;
-    font-weight: 700;
-  }
-
-  h1 {
-    margin-top: 25px;
-    font-size: 3rem;
-  }
-
-  p {
-    text-align: center;
-    opacity: 0.9;
-    max-width: 800px;
-    margin: 10px auto 30px;
-  }
-
-  /* BIG CATEGORY BUTTONS */
   .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -51,7 +27,7 @@
     font-size: 2rem;
     text-decoration: none;
     color: white;
-    transition: transform 0.25s ease, background 0.25s ease;
+    transition: 0.25s;
   }
 
   .category:hover {
@@ -59,7 +35,6 @@
     background: rgba(255,255,255,0.2);
   }
 
-  /* SECTIONS */
   .section {
     width: 100%;
     padding: 35px 0 40px;
@@ -67,15 +42,11 @@
     background: rgba(255,255,255,0.05);
   }
 
-  .section h2 {
-    font-size: 2.4rem;
-    margin-bottom: 10px;
-  }
+  .section h2 { font-size: 2.4rem; margin-bottom: 10px; }
 
-  /* GAME GRID */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* ~3 per row on wide screens */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 18px;
     padding: 20px 40px 10px;
   }
@@ -83,7 +54,6 @@
   .thumb {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 10px;
     background: #0a2a52;
     border-radius: 14px;
@@ -91,12 +61,7 @@
     font-size: 1.05rem;
     text-decoration: none;
     color: #ffffff;
-    cursor: pointer;
-    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
-  }
-
-  .thumb span.emoji {
-    font-size: 1.4rem;
+    transition: 0.22s;
   }
 
   .thumb:hover {
@@ -104,61 +69,43 @@
     box-shadow: 0 0 18px rgba(255,255,255,0.35);
     background: #123764;
   }
+
+  .thumb span.emoji { font-size: 1.4rem; }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<h1>Unblopcked Sports Games</h1>
-<p>Welcome to the ultimate hub for fast, smooth, unblocked sports and action games. Choose a category below and jump straight into the action.</p>
+<h1>Unblocked Sports Games</h1>
+<p>Choose a category and play instantly — all games load directly on your site.</p>
 
-<!-- MAIN 8 CATEGORIES -->
 <div class="category-grid">
-  <a class="category" href="#popular">🔥 Popular Games</a>
+  <a class="category" href="#popular">🔥 Popular</a>
   <a class="category" href="#basketball">🏀 Basketball</a>
   <a class="category" href="#soccer">⚽ Soccer</a>
   <a class="category" href="#nfl">🏈 NFL</a>
   <a class="category" href="#hockey">🏒 Hockey</a>
   <a class="category" href="#athletics">🏃 Athletics</a>
-  <a class="category" href="#racing">🏎️ Racing Games</a>
-  <a class="category" href="#fighting">🥊 Fighting Games</a>
+  <a class="category" href="#racing">🏎️ Racing</a>
+  <a class="category" href="#fighting">🥊 Fighting</a>
 </div>
 
-<!-- 🔥 POPULAR GAMES -->
+<!-- 🔥 POPULAR -->
 <div class="section" id="popular">
   <h2>🔥 Popular Games</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=basketball-stars">
-      <span class="emoji">🏀</span> Basketball Stars
-    </a>
-    <a class="thumb" href="game.html?src=retro-bowl">
-      <span class="emoji">🏈</span> Retro Bowl
-    </a>
-    <a class="thumb" href="game.html?src=moto-x3m">
-      <span class="emoji">🏎️</span> Moto X3M
-    </a>
-    <a class="thumb" href="game.html?src=stickman-hook">
-      <span class="emoji">🪝</span> Stickman Hook
-    </a>
-    <a class="thumb" href="game.html?src=drift-boss">
-      <span class="emoji">🚗</span> Drift Boss
-    </a>
-    <a class="thumb" href="game.html?src=run-3">
-      <span class="emoji">🌀</span> Run 3
-    </a>
-    <a class="thumb" href="game.html?src=geometry-dash">
-      <span class="emoji">📦</span> Geometry Dash
-    </a>
-    <a class="thumb" href="game.html?src=1v1-lol">
-      <span class="emoji">🎯</span> 1v1.lol
-    </a>
-    <a class="thumb" href="game.html?src=slope">
-      <span class="emoji">🟢</span> Slope
-    </a>
-    <a class="thumb" href="game.html?src=smash-karts">
-      <span class="emoji">💥</span> Smash Karts
-    </a>
+
+    <a class="thumb" href="game.html?src=basketball-stars"><span class="emoji">🏀</span> Basketball Stars</a>
+    <a class="thumb" href="game.html?src=retro-bowl"><span class="emoji">🏈</span> Retro Bowl</a>
+    <a class="thumb" href="game.html?src=moto-x3m"><span class="emoji">🏍️</span> Moto X3M</a>
+    <a class="thumb" href="game.html?src=stickman-hook"><span class="emoji">🪝</span> Stickman Hook</a>
+    <a class="thumb" href="game.html?src=drift-boss"><span class="emoji">🚗</span> Drift Boss</a>
+    <a class="thumb" href="game.html?src=run-3"><span class="emoji">🌀</span> Run 3</a>
+    <a class="thumb" href="game.html?src=geometry-dash"><span class="emoji">📦</span> Geometry Dash</a>
+    <a class="thumb" href="game.html?src=1v1-lol"><span class="emoji">🎯</span> 1v1.lol</a>
+    <a class="thumb" href="game.html?src=slope"><span class="emoji">🟢</span> Slope</a>
+    <a class="thumb" href="game.html?src=smash-karts"><span class="emoji">💥</span> Smash Karts</a>
+
   </div>
 </div>
 
@@ -166,36 +113,11 @@
 <div class="section" id="basketball">
   <h2>🏀 Basketball</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=basketball-stars">
-      <span class="emoji">🏀</span> Basketball Stars
-    </a>
-    <a class="thumb" href="game.html?src=basketball-legends-2020">
-      <span class="emoji">⭐</span> Basketball Legends 2020
-    </a>
-    <a class="thumb" href="game.html?src=basketball-random">
-      <span class="emoji">🎲</span> Basketball Random
-    </a>
-    <a class="thumb" href="game.html?src=dunk-shot">
-      <span class="emoji">🔥</span> Dunk Shot
-    </a>
-    <a class="thumb" href="game.html?src=street-ball-jam">
-      <span class="emoji">🏙️</span> Street Ball Jam
-    </a>
-    <a class="thumb" href="game.html?src=hoops-madness">
-      <span class="emoji">🎮</span> Hoops Madness
-    </a>
-    <a class="thumb" href="game.html?src=basketball-io">
-      <span class="emoji">💥</span> Basketball.io
-    </a>
-    <a class="thumb" href="game.html?src=trick-shot">
-      <span class="emoji">🎯</span> Trick Shot
-    </a>
-    <a class="thumb" href="game.html?src=all-star-basketball">
-      <span class="emoji">🏆</span> All-Star Basketball
-    </a>
-    <a class="thumb" href="game.html?src=backyard-basketball">
-      <span class="emoji">🌳</span> Backyard Basketball
-    </a>
+
+    <a class="thumb" href="game.html?src=basketball-stars"><span class="emoji">🏀</span> Basketball Stars</a>
+    <a class="thumb" href="game.html?src=basketball-legends"><span class="emoji">⭐</span> Basketball Legends</a>
+    <a class="thumb" href="game.html?src=basket-random"><span class="emoji">🎲</span> Basketball Random</a>
+
   </div>
 </div>
 
@@ -203,36 +125,12 @@
 <div class="section" id="soccer">
   <h2>⚽ Soccer</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=soccer-random">
-      <span class="emoji">🎲</span> Soccer Random
-    </a>
-    <a class="thumb" href="game.html?src=penalty-shootout">
-      <span class="emoji">🥅</span> Penalty Shootout
-    </a>
-    <a class="thumb" href="game.html?src=soccer-skills">
-      <span class="emoji">⚽</span> Soccer Skills
-    </a>
-    <a class="thumb" href="game.html?src=world-cup-penalty">
-      <span class="emoji">🌍</span> World Cup Penalty
-    </a>
-    <a class="thumb" href="game.html?src=football-legends">
-      <span class="emoji">⭐</span> Football Legends
-    </a>
-    <a class="thumb" href="game.html?src=1v1-soccer">
-      <span class="emoji">1️⃣</span> 1v1 Soccer
-    </a>
-    <a class="thumb" href="game.html?src=stickman-soccer">
-      <span class="emoji">🧍</span> Stickman Soccer
-    </a>
-    <a class="thumb" href="game.html?src=goalkeeper-challenge">
-      <span class="emoji">🧤</span> Goalkeeper Challenge
-    </a>
-    <a class="thumb" href="game.html?src=street-soccer">
-      <span class="emoji">🏙️</span> Street Soccer
-    </a>
-    <a class="thumb" href="game.html?src=free-kick-frenzy">
-      <span class="emoji">🎯</span> Free Kick Frenzy
-    </a>
+
+    <a class="thumb" href="game.html?src=soccer-random"><span class="emoji">🎲</span> Soccer Random</a>
+    <a class="thumb" href="game.html?src=penalty-kick-online"><span class="emoji">🥅</span> Penalty Kick Online</a>
+    <a class="thumb" href="game.html?src=football-legends"><span class="emoji">⭐</span> Football Legends</a>
+    <a class="thumb" href="game.html?src=1v1-soccer"><span class="emoji">1️⃣</span> 1v1 Soccer</a>
+
   </div>
 </div>
 
@@ -240,36 +138,13 @@
 <div class="section" id="nfl">
   <h2>🏈 NFL</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=retro-bowl">
-      <span class="emoji">🏈</span> Retro Bowl
-    </a>
-    <a class="thumb" href="game.html?src=axis-football">
-      <span class="emoji">⭐</span> Axis Football
-    </a>
-    <a class="thumb" href="game.html?src=touchdown-blast">
-      <span class="emoji">💥</span> Touchdown Blast
-    </a>
-    <a class="thumb" href="game.html?src=football-master">
-      <span class="emoji">🎮</span> Football Master
-    </a>
-    <a class="thumb" href="game.html?src=4th-and-goal">
-      <span class="emoji">4️⃣</span> 4th and Goal
-    </a>
-    <a class="thumb" href="game.html?src=return-man-3">
-      <span class="emoji">🏃</span> Return Man 3
-    </a>
-    <a class="thumb" href="game.html?src=field-goal-challenge">
-      <span class="emoji">🎯</span> Field Goal Challenge
-    </a>
-    <a class="thumb" href="game.html?src=two-minute-drill">
-      <span class="emoji">⏱️</span> Two Minute Drill
-    </a>
-    <a class="thumb" href="game.html?src=gridiron-glory">
-      <span class="emoji">🏆</span> Gridiron Glory
-    </a>
-    <a class="thumb" href="game.html?src=street-football">
-      <span class="emoji">🏙️</span> Street Football
-    </a>
+
+    <a class="thumb" href="game.html?src=retro-bowl"><span class="emoji">🏈</span> Retro Bowl</a>
+    <a class="thumb" href="game.html?src=4th-and-goal"><span class="emoji">4️⃣</span> 4th and Goal</a>
+    <a class="thumb" href="game.html?src=return-man-3"><span class="emoji">🏃</span> Return Man 3</a>
+    <a class="thumb" href="game.html?src=touchdowners"><span class="emoji">💥</span> Touchdowners</a>
+    <a class="thumb" href="game.html?src=football-legends"><span class="emoji">⭐</span> Football Legends</a>
+
   </div>
 </div>
 
@@ -277,36 +152,10 @@
 <div class="section" id="hockey">
   <h2>🏒 Hockey</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=hockey-shootout">
-      <span class="emoji">🥅</span> Hockey Shootout
-    </a>
-    <a class="thumb" href="game.html?src=hockey-legends">
-      <span class="emoji">⭐</span> Hockey Legends
-    </a>
-    <a class="thumb" href="game.html?src=ice-hockey-3d">
-      <span class="emoji">❄️</span> Ice Hockey 3D
-    </a>
-    <a class="thumb" href="game.html?src=stickman-hockey">
-      <span class="emoji">🧍</span> Stickman Hockey
-    </a>
-    <a class="thumb" href="game.html?src=street-hockey">
-      <span class="emoji">🏙️</span> Street Hockey
-    </a>
-    <a class="thumb" href="game.html?src=goalie-challenge">
-      <span class="emoji">🧤</span> Goalie Challenge
-    </a>
-    <a class="thumb" href="game.html?src=power-play-hockey">
-      <span class="emoji">⚡</span> Power Play Hockey
-    </a>
-    <a class="thumb" href="game.html?src=air-hockey">
-      <span class="emoji">🌀</span> Air Hockey
-    </a>
-    <a class="thumb" href="game.html?src=pond-hockey">
-      <span class="emoji">🌨️</span> Pond Hockey
-    </a>
-    <a class="thumb" href="game.html?src=ultimate-hockey">
-      <span class="emoji">🏆</span> Ultimate Hockey
-    </a>
+
+    <a class="thumb" href="game.html?src=hockey-legends"><span class="emoji">⭐</span> Hockey Legends</a>
+    <a class="thumb" href="game.html?src=hockey-random"><span class="emoji">🎲</span> Hockey Random</a>
+
   </div>
 </div>
 
@@ -314,110 +163,42 @@
 <div class="section" id="athletics">
   <h2>🏃 Athletics</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=track-star">
-      <span class="emoji">🏃</span> Track Star
-    </a>
-    <a class="thumb" href="game.html?src=100m-dash">
-      <span class="emoji">💨</span> 100m Dash
-    </a>
-    <a class="thumb" href="game.html?src=hurdles-challenge">
-      <span class="emoji">🚧</span> Hurdles Challenge
-    </a>
-    <a class="thumb" href="game.html?src=long-jump-hero">
-      <span class="emoji">🦘</span> Long Jump Hero
-    </a>
-    <a class="thumb" href="game.html?src=high-jump-pro">
-      <span class="emoji">⬆️</span> High Jump Pro
-    </a>
-    <a class="thumb" href="game.html?src=relay-race">
-      <span class="emoji">🔁</span> Relay Race
-    </a>
-    <a class="thumb" href="game.html?src=marathon-runner">
-      <span class="emoji">🏅</span> Marathon Runner
-    </a>
-    <a class="thumb" href="game.html?src=javelin-throw">
-      <span class="emoji">🏹</span> Javelin Throw
-    </a>
-    <a class="thumb" href="game.html?src=discus-king">
-      <span class="emoji">🌀</span> Discus King
-    </a>
-    <a class="thumb" href="game.html?src=triple-jump">
-      <span class="emoji">3️⃣</span> Triple Jump
-    </a>
+
+    <a class="thumb" href="game.html?src=run-3"><span class="emoji">🌀</span> Run 3</a>
+    <a class="thumb" href="game.html?src=slope"><span class="emoji">🟢</span> Slope</a>
+    <a class="thumb" href="game.html?src=geometry-dash"><span class="emoji">📦</span> Geometry Dash</a>
+    <a class="thumb" href="game.html?src=1v1-lol"><span class="emoji">🎯</span> 1v1.lol</a>
+
   </div>
 </div>
 
 <!-- 🏎️ RACING -->
 <div class="section" id="racing">
-  <h2>🏎️ Racing Games</h2>
+  <h2>🏎️ Racing</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=moto-x3m">
-      <span class="emoji">🏍️</span> Moto X3M
-    </a>
-    <a class="thumb" href="game.html?src=moto-x3m-pool-party">
-      <span class="emoji">🏖️</span> Moto X3M Pool Party
-    </a>
-    <a class="thumb" href="game.html?src=moto-x3m-winter">
-      <span class="emoji">❄️</span> Moto X3M Winter
-    </a>
-    <a class="thumb" href="game.html?src=drift-boss">
-      <span class="emoji">🚗</span> Drift Boss
-    </a>
-    <a class="thumb" href="game.html?src=smash-karts">
-      <span class="emoji">💥</span> Smash Karts
-    </a>
-    <a class="thumb" href="game.html?src=madalin-stunt-cars-2">
-      <span class="emoji">🚘</span> Madalin Stunt Cars 2
-    </a>
-    <a class="thumb" href="game.html?src=city-rider">
-      <span class="emoji">🏙️</span> City Rider
-    </a>
-    <a class="thumb" href="game.html?src=drag-racer">
-      <span class="emoji">🏁</span> Drag Racer
-    </a>
-    <a class="thumb" href="game.html?src=offroad-truck">
-      <span class="emoji">🚚</span> Offroad Truck
-    </a>
-    <a class="thumb" href="game.html?src=highway-racer">
-      <span class="emoji">🛣️</span> Highway Racer
-    </a>
+
+    <a class="thumb" href="game.html?src=moto-x3m"><span class="emoji">🏍️</span> Moto X3M</a>
+    <a class="thumb" href="game.html?src=moto-x3m-pool-party"><span class="emoji">🏖️</span> Moto X3M Pool Party</a>
+    <a class="thumb" href="game.html?src=moto-x3m-winter"><span class="emoji">❄️</span> Moto X3M Winter</a>
+    <a class="thumb" href="game.html?src=drift-boss"><span class="emoji">🚗</span> Drift Boss</a>
+    <a class="thumb" href="game.html?src=smash-karts"><span class="emoji">💥</span> Smash Karts</a>
+    <a class="thumb" href="game.html?src=madalin-stunt-cars-2"><span class="emoji">🚘</span> Madalin Stunt Cars 2</a>
+    <a class="thumb" href="game.html?src=highway-traffic"><span class="emoji">🛣️</span> Highway Traffic</a>
+
   </div>
 </div>
 
 <!-- 🥊 FIGHTING -->
 <div class="section" id="fighting">
-  <h2>🥊 Fighting Games</h2>
+  <h2>🥊 Fighting</h2>
   <div class="grid">
-    <a class="thumb" href="game.html?src=stickman-fighter">
-      <span class="emoji">🥊</span> Stickman Fighter
-    </a>
-    <a class="thumb" href="game.html?src=stickman-hook">
-      <span class="emoji">🪝</span> Stickman Hook
-    </a>
-    <a class="thumb" href="game.html?src=boxing-physics">
-      <span class="emoji">🥊</span> Boxing Physics
-    </a>
-    <a class="thumb" href="game.html?src=street-fight">
-      <span class="emoji">🏙️</span> Street Fight
-    </a>
-    <a class="thumb" href="game.html?src=rooftop-snipers">
-      <span class="emoji">🎯</span> Rooftop Snipers
-    </a>
-    <a class="thumb" href="game.html?src=getaway-shootout">
-      <span class="emoji">🚓</span> Getaway Shootout
-    </a>
-    <a class="thumb" href="game.html?src=gun-mayhem-2">
-      <span class="emoji">🔫</span> Gun Mayhem 2
-    </a>
-    <a class="thumb" href="game.html?src=super-smash-flash">
-      <span class="emoji">💥</span> Super Smash Flash
-    </a>
-    <a class="thumb" href="game.html?src=stickman-warriors">
-      <span class="emoji">🧍</span> Stickman Warriors
-    </a>
-    <a class="thumb" href="game.html?src=arena-brawl">
-      <span class="emoji">🏟️</span> Arena Brawl
-    </a>
+
+    <a class="thumb" href="game.html?src=stickman-hook"><span class="emoji">🪝</span> Stickman Hook</a>
+    <a class="thumb" href="game.html?src=rooftop-snipers"><span class="emoji">🎯</span> Rooftop Snipers</a>
+    <a class="thumb" href="game.html?src=getaway-shootout"><span class="emoji">🚓</span> Getaway Shootout</a>
+    <a class="thumb" href="game.html?src=gun-mayhem-2"><span class="emoji">🔫</span> Gun Mayhem 2</a>
+    <a class="thumb" href="game.html?src=ssf2"><span class="emoji">💥</span> Super Smash Flash 2</a>
+
   </div>
 </div>
 
