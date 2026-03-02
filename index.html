@@ -992,7 +992,7 @@ function clearSearch(){ document.getElementById('searchBox').value=''; goHome();
    ============================================= */
 function openGame(url,name){
   document.getElementById('modalTitle').textContent='🎮 '+name;
-  document.getElementById('gameFrame').src=BASE+url+'/index.html';
+  document.getElementById('gameFrame').src=BASE+'play.html?game='+url;
   document.getElementById('gameModal').classList.add('open');
   document.body.style.overflow='hidden';
 }
