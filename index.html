@@ -1,909 +1,842 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Unblocked Sports Games Hub</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unblocked Sports Games</title>
+<link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #080c22;
+  --navy2: #0d1235;
+  --navy3: #141b45;
+  --accent: #00d4ff;
+  --accent2: #ff6b35;
+  --accent3: #7c3aed;
+  --gold: #ffd700;
+  --green: #00ff88;
+  --pink: #ff3388;
+}
 
-  :root {
-    --bg-main: radial-gradient(circle at top, #1b2a6b 0, #050816 45%, #02030a 100%);
-    --bg-panel: rgba(15, 23, 42, 0.9);
-    --bg-card: #020617;
-    --border-soft: rgba(148, 163, 184, 0.4);
-    --accent: #38bdf8;
-    --accent-soft: rgba(56, 189, 248, 0.35);
-    --text-main: #e5e7eb;
-    --text-muted: #9ca3af;
-  }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-  body.light {
-    --bg-main: radial-gradient(circle at top, #e0f2fe 0, #e5e7eb 45%, #f9fafb 100%);
-    --bg-panel: rgba(243, 244, 246, 0.95);
-    --bg-card: #ffffff;
-    --border-soft: rgba(148, 163, 184, 0.7);
-    --accent: #2563eb;
-    --accent-soft: rgba(59, 130, 246, 0.25);
-    --text-main: #111827;
-    --text-muted: #6b7280;
-  }
+body {
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-  body {
-    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-main);
-    color: var(--text-main);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 15%, #1a2f7022 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 85%, #2d1b6922 0%, transparent 60%),
+    radial-gradient(ellipse 80% 30% at 50% 50%, #0d1a4411 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+}
 
-  h1, h2 {
-    text-align: center;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-  }
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+  pointer-events:none; z-index:1;
+}
 
-  h1 {
-    margin-top: 25px;
-    font-size: 3rem;
-    text-shadow: 0 0 18px rgba(0, 255, 255, 0.7);
-  }
+/* PARTICLES */
+#particles { position:fixed; inset:0; pointer-events:none; z-index:2; overflow:hidden; }
+.particle {
+  position:absolute; border-radius:50%;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  from { transform:translateY(105vh) rotate(0deg); opacity:0; }
+  5% { opacity:1; }
+  95% { opacity:0.8; }
+  to { transform:translateY(-10vh) rotate(720deg); opacity:0; }
+}
 
-  p {
-    text-align: center;
-    opacity: 0.9;
-    max-width: 800px;
-    margin: 10px auto 30px;
-    color: var(--text-muted);
-  }
+/* SIDE CONTROLLERS */
+.ctrl-side {
+  position:fixed; top:50%; z-index:6;
+  transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:20px;
+  pointer-events:none;
+}
+.ctrl-side.left { left:8px; }
+.ctrl-side.right { right:8px; }
+.ctrl-icon { font-size:22px; opacity:0.22; animation: sideGlow 2.5s ease-in-out infinite alternate; }
+.ctrl-icon:nth-child(1) { animation-delay:0s;   filter:drop-shadow(0 0 8px #00d4ff); }
+.ctrl-icon:nth-child(2) { animation-delay:0.4s; filter:drop-shadow(0 0 8px #ff6b35); }
+.ctrl-icon:nth-child(3) { animation-delay:0.8s; filter:drop-shadow(0 0 8px #ffd700); }
+.ctrl-icon:nth-child(4) { animation-delay:1.2s; filter:drop-shadow(0 0 8px #00ff88); }
+.ctrl-icon:nth-child(5) { animation-delay:1.6s; filter:drop-shadow(0 0 8px #ff3388); }
+.ctrl-icon:nth-child(6) { animation-delay:2.0s; filter:drop-shadow(0 0 8px #7c3aed); }
+@keyframes sideGlow {
+  from { opacity:0.18; transform:scale(0.9); }
+  to   { opacity:0.45; transform:scale(1.12); }
+}
 
-  .top-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px 0;
-  }
+/* HEADER */
+header {
+  position:relative; z-index:10;
+  text-align:center;
+  padding:30px 90px 0;
+}
+.site-title {
+  font-family:'Boogaloo',cursive;
+  font-size:clamp(2.4rem, 6vw, 5rem);
+  background:linear-gradient(120deg, #00d4ff 0%, #fff 35%, #ff6b35 65%, #ffd700 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:titlePulse 5s ease-in-out infinite;
+  line-height:1; margin-bottom:10px;
+}
+@keyframes titlePulse {
+  0%,100%{ filter:drop-shadow(0 0 18px #00d4ff44); }
+  50%    { filter:drop-shadow(0 0 55px #00d4ffaa); }
+}
+.site-blurb {
+  font-size:0.92rem; color:#8090b8; max-width:680px;
+  margin:0 auto; line-height:1.65; font-weight:600;
+}
+.site-blurb span { color:var(--accent); }
 
-  .search-box {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg-panel);
-    border-radius: 999px;
-    padding: 6px 14px;
-    border: 1px solid var(--border-soft);
-    min-width: 260px;
-  }
+/* NAV */
+.nav-wrap { position:relative; z-index:10; padding:18px 40px 0; }
+.nav-tabs { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.nav-tab {
+  background:linear-gradient(135deg,#161e50,#0c1130);
+  border:1.5px solid rgba(0,212,255,0.18);
+  border-radius:50px; padding:9px 20px;
+  font-family:'Boogaloo',cursive; font-size:1rem; color:#9ab0d8;
+  cursor:pointer;
+  transition:all 0.25s cubic-bezier(.34,1.56,.64,1);
+  white-space:nowrap; user-select:none;
+}
+.nav-tab:hover, .nav-tab.active {
+  transform:scale(1.1); color:#fff;
+  border-color:var(--accent);
+  box-shadow:0 0 18px #00d4ff55, 0 0 36px #00d4ff22;
+  background:linear-gradient(135deg,#1e2d70,#101840);
+}
 
-  .search-box input {
-    border: none;
-    outline: none;
-    background: transparent;
-    color: var(--text-main);
-    font-size: 0.9rem;
-    width: 200px;
-  }
+/* DIVIDER */
+.neon-divider {
+  height:2px; margin:18px 40px 0;
+  background:linear-gradient(90deg,transparent,#00d4ff,#ff6b35,#7c3aed,#00d4ff,transparent);
+  position:relative; z-index:10;
+  animation:divPulse 4s ease-in-out infinite;
+}
+@keyframes divPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
 
-  .toggle-btn {
-    border: none;
-    border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: var(--bg-panel);
-    color: var(--text-main);
-    border: 1px solid var(--border-soft);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  }
+/* SEARCH */
+.search-wrap {
+  position:relative; z-index:10;
+  padding:18px 40px 0;
+  display:flex; justify-content:center;
+}
+.search-box {
+  background:rgba(16,22,58,0.85);
+  border:1.5px solid rgba(0,212,255,0.22);
+  border-radius:50px; padding:10px 24px 10px 46px;
+  font-family:'Nunito',sans-serif; font-size:0.93rem; color:#fff;
+  width:100%; max-width:460px; outline:none;
+  transition:border-color 0.2s, box-shadow 0.2s;
+}
+.search-box::placeholder { color:#3a4a68; }
+.search-box:focus { border-color:var(--accent); box-shadow:0 0 18px #00d4ff33; }
+.search-icon {
+  position:absolute; top:50%; transform:translateY(-50%);
+  left:calc(50% - 210px); font-size:1rem; color:#3a4a68; pointer-events:none;
+}
 
-  .toggle-btn:hover {
-    background: var(--accent-soft);
-    transform: translateY(-1px);
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-  }
+/* MAIN */
+main { position:relative; z-index:10; padding:22px 40px 70px; }
 
-  .side-decor {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 120px;
-    height: 260px;
-    border-radius: 40px;
-    background: linear-gradient(145deg, #111827, #020617);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .side-decor.left { left: 10px; }
-  .side-decor.right { right: 10px; }
+/* VIEWS */
+.view { display:none; }
+.view.active { display:block; animation:fadeUp 0.33s ease; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-  .controller-icon {
-    font-size: 3.2rem;
-    filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.9));
-    animation: pulse 2.2s infinite ease-in-out;
-  }
+/* HOME GRID */
+.home-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+@media(max-width:780px){ .home-grid{ grid-template-columns:1fr; } }
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-  }
+.cat-card {
+  background:linear-gradient(135deg,#131a48,#0a1028,#16103c);
+  border:1.5px solid rgba(0,212,255,0.14);
+  border-radius:22px; padding:26px 26px 20px;
+  cursor:pointer;
+  transition:all 0.3s cubic-bezier(.34,1.56,.64,1);
+  position:relative; overflow:hidden;
+  min-height:205px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.cat-card:hover {
+  transform:translateY(-8px) scale(1.02);
+  border-color:var(--accent);
+  box-shadow:0 0 40px #00d4ff33, 0 22px 55px #00000066;
+}
+.cat-glow {
+  position:absolute; top:-40px; right:-40px;
+  width:130px; height:130px; border-radius:50%;
+  opacity:0.15; pointer-events:none;
+}
+.cat-card[data-cat="popular"]    .cat-glow { background:radial-gradient(#ff6b35,transparent); }
+.cat-card[data-cat="basketball"] .cat-glow { background:radial-gradient(#ff8c00,transparent); }
+.cat-card[data-cat="soccer"]     .cat-glow { background:radial-gradient(#00cc55,transparent); }
+.cat-card[data-cat="nfl"]        .cat-glow { background:radial-gradient(#cd7f32,transparent); }
+.cat-card[data-cat="hockey"]     .cat-glow { background:radial-gradient(#00ccff,transparent); }
+.cat-card[data-cat="athletics"]  .cat-glow { background:radial-gradient(#00ff88,transparent); }
+.cat-card[data-cat="racing"]     .cat-glow { background:radial-gradient(#ff3366,transparent); }
+.cat-card[data-cat="fighting"]   .cat-glow { background:radial-gradient(#cc00ff,transparent); }
 
-  .category-grid {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
-    padding: 20px 40px 10px;
-  }
+.cat-top { display:flex; align-items:center; gap:14px; }
+.cat-emoji-big { font-size:3rem; line-height:1; }
+.cat-name-big {
+  font-family:'Boogaloo',cursive;
+  font-size:clamp(1.8rem,3.2vw,2.6rem);
+  color:#fff; line-height:1.1;
+  text-shadow:0 0 25px rgba(0,212,255,0.35);
+}
+.cat-count-small { font-size:0.75rem; color:#4a6090; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-top:3px; }
 
-  .category {
-    background: linear-gradient(135deg, var(--accent-soft), rgba(129, 140, 248, 0.25));
-    border: 1px solid rgba(56, 189, 248, 0.4);
-    padding: 26px;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 1.6rem;
-    text-decoration: none;
-    color: var(--text-main);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-    backdrop-filter: blur(6px);
-  }
+.cat-previews { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+.cat-previews img {
+  width:54px; height:54px; border-radius:10px; object-fit:cover;
+  border:1.5px solid rgba(255,255,255,0.07);
+  transition:transform 0.2s;
+}
+.cat-card:hover .cat-previews img { transform:scale(1.1); }
 
-  .category:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.45), rgba(129, 140, 248, 0.45));
-  }
+/* CATEGORY HEADER */
+.cat-header { display:flex; align-items:center; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+.back-btn {
+  background:linear-gradient(135deg,#161e50,#0c1130);
+  border:1.5px solid rgba(0,212,255,0.28);
+  border-radius:50px; padding:8px 18px;
+  color:var(--accent); cursor:pointer;
+  font-family:'Boogaloo',cursive; font-size:0.97rem;
+  transition:all 0.2s;
+}
+.back-btn:hover { background:rgba(0,212,255,0.1); box-shadow:0 0 16px #00d4ff44; }
+.cat-header h2 {
+  font-family:'Boogaloo',cursive;
+  font-size:clamp(1.7rem,4vw,2.6rem);
+  background:linear-gradient(135deg,var(--accent),#fff);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.count-badge {
+  background:rgba(0,212,255,0.1); border:1px solid rgba(0,212,255,0.28);
+  border-radius:20px; padding:3px 11px;
+  font-size:0.77rem; color:var(--accent);
+  font-weight:700; text-transform:uppercase; letter-spacing:1px;
+}
 
-  .section {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    padding: 35px 0 40px;
-    margin-top: 20px;
-    background: var(--bg-panel);
-    border-top: 1px solid var(--border-soft);
-    border-bottom: 1px solid var(--border-soft);
-  }
+/* GAMES GRID */
+.games-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;
+}
 
-  .section h2 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    text-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
-  }
+.game-card {
+  background:linear-gradient(155deg,#131a48,#090e28);
+  border:1.5px solid rgba(0,212,255,0.1);
+  border-radius:15px; overflow:hidden;
+  cursor:pointer;
+  transition:all 0.3s cubic-bezier(.34,1.56,.64,1);
+}
+.game-card:hover {
+  transform:translateY(-7px) scale(1.03);
+  border-color:var(--accent);
+  box-shadow:0 0 28px #00d4ff44, 0 16px 38px #00000077;
+}
+.thumb-wrap { position:relative; height:126px; overflow:hidden; }
+.thumb-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+.game-card:hover .thumb-wrap img { transform:scale(1.1); }
+.thumb-grad { position:absolute; inset:0; background:linear-gradient(to top,#09102888,transparent 60%); }
+.play-layer {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity 0.22s;
+}
+.game-card:hover .play-layer { opacity:1; }
+.play-circle {
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent3));
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem;
+  box-shadow:0 0 22px rgba(0,212,255,0.7);
+  animation:popIn 0.18s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn { from{transform:scale(0.3)} to{transform:scale(1)} }
 
-  .section-subtitle {
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
+.game-info { padding:10px 11px 11px; }
+.game-name { font-family:'Boogaloo',cursive; font-size:0.97rem; color:#dde8ff; margin-bottom:4px; line-height:1.2; }
+.game-desc { font-size:0.69rem; color:#3c5070; line-height:1.38; margin-bottom:6px; }
+.game-tags { display:flex; gap:4px; flex-wrap:wrap; }
+.tag {
+  font-size:0.59rem; font-weight:700;
+  padding:2px 6px; border-radius:20px;
+  background:rgba(0,212,255,0.09); color:var(--accent);
+  text-transform:uppercase; letter-spacing:0.5px;
+  border:1px solid rgba(0,212,255,0.16);
+}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 20px 40px 10px;
-  }
+/* EMPTY STATE */
+.empty-state { text-align:center; padding:60px 20px; color:#2a3a58; }
+.empty-state .e-emoji { font-size:4rem; margin-bottom:14px; }
+.empty-state p { font-size:1.05rem; }
 
-  .thumb {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--bg-card);
-    border-radius: 16px;
-    padding: 14px 16px;
-    text-decoration: none;
-    color: var(--text-main);
-    cursor: pointer;
-    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border 0.22s ease;
-    border: 1px solid var(--border-soft);
-    min-height: 110px;
-  }
+/* GAME MODAL */
+#gameModal {
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:rgba(2,4,15,0.97);
+  flex-direction:column;
+}
+#gameModal.open { display:flex; animation:fadeIn 0.22s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
-  .thumb:hover {
-    transform: scale(1.04);
-    box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
-    background: #020617;
-    border-color: rgba(56, 189, 248, 0.8);
-  }
+.modal-bar {
+  background:linear-gradient(90deg,#050820,#0e1440,#050820);
+  border-bottom:2px solid var(--accent);
+  padding:10px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  box-shadow:0 0 28px rgba(0,212,255,0.25);
+  flex-shrink:0;
+}
+.modal-title { font-family:'Boogaloo',cursive; font-size:1.35rem; color:var(--accent); letter-spacing:0.5px; }
+.modal-btns { display:flex; gap:10px; }
+.m-btn {
+  background:rgba(0,212,255,0.08);
+  border:1.5px solid rgba(0,212,255,0.32);
+  border-radius:8px; color:#fff;
+  padding:6px 16px; cursor:pointer;
+  font-family:'Boogaloo',cursive; font-size:0.92rem;
+  transition:all 0.18s;
+}
+.m-btn:hover { background:rgba(0,212,255,0.18); box-shadow:0 0 14px #00d4ff44; }
+.m-btn.close-btn { border-color:rgba(255,80,80,0.36); color:#ff7777; }
+.m-btn.close-btn:hover { background:rgba(255,80,80,0.14); }
 
-  .thumb img.game-thumb {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    object-fit: cover;
-    flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(15, 23, 42, 0.9);
-  }
+.iframe-wrap { flex:1; position:relative; }
+.iframe-wrap iframe {
+  position:absolute; inset:0;
+  width:100%; height:100%; border:none;
+}
 
-  .thumb span.emoji {
-    font-size: 1.6rem;
-    flex-shrink: 0;
-  }
+/* SCROLLBAR */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--navy); }
+::-webkit-scrollbar-thumb { background:linear-gradient(var(--accent),var(--accent3)); border-radius:3px; }
 
-  .thumb .title-wrap {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .thumb .title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .thumb .meta {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .thumb .desc {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-
-  .badge-new {
-    display: inline-block;
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 999px;
-    background: rgba(34, 197, 94, 0.15);
-    color: #22c55e;
-    border: 1px solid rgba(34, 197, 94, 0.5);
-    margin-left: 6px;
-  }
-
-  .fav-icon {
-    margin-left: auto;
-    font-size: 1.3rem;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: transform 0.2s, opacity 0.2s;
-  }
-
-  .fav-icon.active {
-    color: #facc15;
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  #game-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.96);
-    display: none;
-    flex-direction: column;
-    z-index: 50;
-  }
-
-  #game-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 16px;
-    background: #020617;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.5);
-  }
-
-  #game-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  #game-header-left img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  #game-title {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  #game-controls {
-    display: flex;
-    gap: 8px;
-  }
-
-  .game-btn {
-    border: none;
-    border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: #0f172a;
-    color: #e5e7eb;
-    border: 1px solid rgba(148, 163, 184, 0.7);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  }
-
-  .game-btn:hover {
-    background: #111827;
-    transform: translateY(-1px);
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
-  }
-
-  #game-frame-wrapper {
-    flex: 1;
-    position: relative;
-    background: #020617;
-  }
-
-  #game-frame {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .loader-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 40;
-  }
-
-  .loader {
-    border: 4px solid rgba(148, 163, 184, 0.4);
-    border-top: 4px solid var(--accent);
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    animation: spin 0.9s linear infinite;
-  }
-
-  .loader-small {
-    border-width: 3px;
-    width: 26px;
-    height: 26px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  #iframe-loader {
-    position: absolute;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: rgba(15, 23, 42, 0.85);
-    z-index: 5;
-  }
-
-  #recent-grid, #favorites-grid {
-    min-height: 40px;
-  }
-
-  .empty-text {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    padding: 10px 0 0;
-  }
-
-  @media (max-width: 768px) {
-    .side-decor { display: none; }
-    .category-grid, .grid { padding: 16px; }
-    #game-header { flex-wrap: wrap; gap: 8px; }
-  }
+@media(max-width:600px){
+  header { padding:20px 20px 0; }
+  .nav-wrap,.search-wrap,main { padding-left:14px; padding-right:14px; }
+  .neon-divider { margin:14px 14px 0; }
+  .games-grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+  .thumb-wrap { height:110px; }
+}
 </style>
 </head>
 <body>
 
-<div class="side-decor left">
-  <div class="controller-icon">🎮</div>
+<div id="particles"></div>
+
+<div class="ctrl-side left">
+  <div class="ctrl-icon">🎮</div><div class="ctrl-icon">🕹️</div>
+  <div class="ctrl-icon">⚡</div><div class="ctrl-icon">🏆</div>
+  <div class="ctrl-icon">🎯</div><div class="ctrl-icon">🔥</div>
 </div>
-<div class="side-decor right">
-  <div class="controller-icon">🕹️</div>
+<div class="ctrl-side right">
+  <div class="ctrl-icon">🎮</div><div class="ctrl-icon">💥</div>
+  <div class="ctrl-icon">⭐</div><div class="ctrl-icon">🕹️</div>
+  <div class="ctrl-icon">🏅</div><div class="ctrl-icon">⚡</div>
 </div>
 
-<h1>Unblocked Sports Games</h1>
-<p>All games load directly on this site. Search, favorite, go fullscreen, and jump between categories without ever leaving.</p>
+<header>
+  <h1 class="site-title">Unblocked Sports Games</h1>
+  <p class="site-blurb">
+    Your <span>ultimate destination</span> for free, unblocked browser games.
+    No downloads, no logins — just click and play <span>instantly</span> right here on the page.
+    Sports, racing, fighting, puzzles &amp; hundreds more!
+  </p>
+</header>
 
-<div class="top-bar">
-  <div class="search-box">
-    🔍
-    <input id="search-input" type="text" placeholder="Search games..." />
+<div class="nav-wrap">
+  <div class="nav-tabs" id="navTabs">
+    <div class="nav-tab active"  onclick="goHome()">🏠 Home</div>
+    <div class="nav-tab" onclick="goCategory('popular')">🔥 Popular Games</div>
+    <div class="nav-tab" onclick="goCategory('basketball')">🏀 Basketball</div>
+    <div class="nav-tab" onclick="goCategory('soccer')">⚽ Soccer</div>
+    <div class="nav-tab" onclick="goCategory('nfl')">🏈 NFL</div>
+    <div class="nav-tab" onclick="goCategory('hockey')">🏒 Hockey</div>
+    <div class="nav-tab" onclick="goCategory('athletics')">🏃 Athletics</div>
+    <div class="nav-tab" onclick="goCategory('racing')">🏎️ Racing Games</div>
+    <div class="nav-tab" onclick="goCategory('fighting')">🥊 Fighting Games</div>
   </div>
-  <button class="toggle-btn" id="theme-toggle">🌙 Dark / Light</button>
 </div>
 
-<div class="category-grid">
-  <a class="category" href="#popular">🔥 Popular Games</a>
-  <a class="category" href="#recent">🕒 Recently Played</a>
-  <a class="category" href="#favorites">⭐ Favorites</a>
-  <a class="category" href="#basketball">🏀 Basketball</a>
-  <a class="category" href="#soccer">⚽ Soccer</a>
-  <a class="category" href="#nfl">🏈 NFL</a>
-  <a class="category" href="#hockey">🏒 Hockey</a>
-  <a class="category" href="#athletics">🏃 Athletics</a>
-  <a class="category" href="#racing">🏎️ Racing Games</a>
-  <a class="category" href="#fighting">🥊 Fighting Games</a>
+<div class="neon-divider"></div>
+
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input class="search-box" id="searchBox" type="text"
+    placeholder="Search all games..." oninput="handleSearch(this.value)">
 </div>
 
-<div id="global-loader" class="loader-overlay">
-  <div class="loader"></div>
-</div>
-
-<div class="section" id="popular">
-  <h2>🔥 Popular Games</h2>
-  <div class="section-subtitle">Most played games across the site (no duplicates).</div>
-  <div class="grid" id="popular-grid"></div>
-</div>
-
-<div class="section" id="recent">
-  <h2>🕒 Recently Played</h2>
-  <div class="section-subtitle">Your last few games, saved on this device.</div>
-  <div class="grid" id="recent-grid"></div>
-  <div class="empty-text" id="recent-empty">No games played yet.</div>
-</div>
-
-<div class="section" id="favorites">
-  <h2>⭐ Favorites</h2>
-  <div class="section-subtitle">Pin games you love and access them quickly.</div>
-  <div class="grid" id="favorites-grid"></div>
-  <div class="empty-text" id="favorites-empty">No favorites yet. Tap the ⭐ on any game.</div>
-</div>
-
-<div class="section" id="basketball">
-  <h2>🏀 Basketball</h2>
-  <div class="grid" id="basketball-grid"></div>
-</div>
-
-<div class="section" id="soccer">
-  <h2>⚽ Soccer</h2>
-  <div class="grid" id="soccer-grid"></div>
-</div>
-
-<div class="section" id="nfl">
-  <h2>🏈 NFL</h2>
-  <div class="grid" id="nfl-grid"></div>
-</div>
-
-<div class="section" id="hockey">
-  <h2>🏒 Hockey</h2>
-  <div class="grid" id="hockey-grid"></div>
-</div>
-
-<div class="section" id="athletics">
-  <h2>🏃 Athletics</h2>
-  <div class="grid" id="athletics-grid"></div>
-</div>
-
-<div class="section" id="racing">
-  <h2>🏎️ Racing Games</h2>
-  <div class="grid" id="racing-grid"></div>
-</div>
-
-<div class="section" id="fighting">
-  <h2>🥊 Fighting Games</h2>
-  <div class="grid" id="fighting-grid"></div>
-</div>
-
-<div id="game-overlay">
-  <div id="game-header">
-    <div id="game-header-left">
-      <img id="game-thumb" src="" alt="Game thumbnail" />
-      <div id="game-title">Loading...</div>
+<main>
+  <div class="view active" id="view-home">
+    <div class="home-grid" id="homeGrid"></div>
+  </div>
+  <div class="view" id="view-search">
+    <div class="cat-header">
+      <button class="back-btn" onclick="clearSearch()">← Back</button>
+      <h2>Search Results</h2>
+      <span class="count-badge" id="searchCount">0 games</span>
     </div>
-    <div id="game-controls">
-      <button class="game-btn" id="fullscreen-btn">⛶ Fullscreen</button>
-      <button class="game-btn" id="close-btn">✕ Close</button>
+    <div class="games-grid" id="searchGrid"></div>
+  </div>
+  <div class="view" id="view-popular"></div>
+  <div class="view" id="view-basketball"></div>
+  <div class="view" id="view-soccer"></div>
+  <div class="view" id="view-nfl"></div>
+  <div class="view" id="view-hockey"></div>
+  <div class="view" id="view-athletics"></div>
+  <div class="view" id="view-racing"></div>
+  <div class="view" id="view-fighting"></div>
+</main>
+
+<!-- Modal -->
+<div id="gameModal">
+  <div class="modal-bar">
+    <div class="modal-title" id="modalTitle">🎮 Game</div>
+    <div class="modal-btns">
+      <button class="m-btn" id="fsBtn" onclick="toggleFS()">⛶ Fullscreen</button>
+      <button class="m-btn close-btn" onclick="closeModal()">✕ Close</button>
     </div>
   </div>
-  <div id="game-frame-wrapper">
-    <div id="iframe-loader" class="loader-overlay" style="position:absolute;">
-      <div class="loader loader-small"></div>
-    </div>
-    <iframe id="game-frame" src=""></iframe>
+  <div class="iframe-wrap" id="iframeWrap">
+    <iframe id="gameFrame"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-modals allow-popups"
+      allowfullscreen></iframe>
   </div>
 </div>
 
 <script>
-  const GAMES_JSON_URL = "https://ubghyper.github.io/assets/games.json";
-  const GAME_BASE = "https://ubghyper.github.io/GameList.github.io/";
-  const IMAGE_BASE = "https://Dimitri847.github.io/images/";
+/* ===== CONSTANTS ===== */
+const BASE = 'https://ubghyper.github.io/';
+const IMG  = BASE + 'assets/img/';
+const CAT_ORDER = ['home','popular','basketball','soccer','nfl','hockey','athletics','racing','fighting'];
 
-  const overlay = document.getElementById("game-overlay");
-  const gameFrame = document.getElementById("game-frame");
-  const gameTitleEl = document.getElementById("game-title");
-  const gameThumbEl = document.getElementById("game-thumb");
-  const closeBtn = document.getElementById("close-btn");
-  const fullscreenBtn = document.getElementById("fullscreen-btn");
-  const iframeLoader = document.getElementById("iframe-loader");
-  const globalLoader = document.getElementById("global-loader");
-  const searchInput = document.getElementById("search-input");
-  const themeToggle = document.getElementById("theme-toggle");
+/* ===== ALL GAMES ===== */
+const GAMES = [
+  {n:"2048",img:"2048.jpg",url:"2048",t:["puzzle","strategy"],d:"Combine tiles to reach 2048! Addictive puzzle with endless replayability."},
+  {n:"Awesome Planes",img:"awesomeplanes.png",url:"Awesome-Planes",t:["shooter","action"],d:"Pilot warplanes through aerial dogfights! Shoot enemies and upgrade weapons."},
+  {n:"Awesome Tanks",img:"awesometanks.jpg",url:"Awesome-Tanks",t:["shooter","action"],d:"Command your tank through battlefields! Destroy rivals and upgrade armor."},
+  {n:"Sandboxels",img:"sandboxels.png",url:"Sandboxels",t:["sandbox","simulation"],d:"Experiment with hundreds of elements! Mix fire, water and acids."},
+  {n:"Bloons TD 4",img:"btd4.png",url:"BTD-4",t:["tower defense","strategy"],d:"Pop balloons with strategic monkey tower placement! Upgrade defenses."},
+  {n:"Bitlife",img:"bitlife.png",url:"Bitlife",t:["simulation","text"],d:"Live a complete virtual life from birth to death! Make choices that shape destiny."},
+  {n:"Blackjack",img:"blackjack.png",url:"Blackjack",t:["card","casino"],d:"Classic casino card game! Get as close to 21 without going over."},
+  {n:"Bloons TD 5",img:"btd5.png",url:"Bloons-TD-5",t:["tower defense","strategy"],d:"Ultimate balloon-popping tower defense! More towers and upgrades."},
+  {n:"Line Rider 2",img:"linerider2.png",url:"Line-Rider-2",t:["creative","physics"],d:"Draw custom tracks and watch a sledder ride your creation!"},
+  {n:"Bob The Robber",img:"bobtherobber.png",url:"Bob-The-Robber",t:["stealth","puzzle"],d:"Become the ultimate burglar! Sneak past cameras and crack safes."},
+  {n:"Click The Wawas",img:"wawa.png",url:"Click-The-Wawas",t:["clicker","idle"],d:"Click to earn points and unlock upgrades in this addictive incremental game!"},
+  {n:"Cookie Clicker",img:"cookieclicker.jpg",url:"Cookie-Clicker",t:["idle","clicker"],d:"Bake infinite cookies! Buy grandmas and factories to automate your empire."},
+  {n:"Doom",img:"doom.png",url:"Doom",t:["shooter","fps"],d:"The legendary FPS! Battle hellish demons on Mars with powerful weapons."},
+  {n:"Drive Mad",img:"logo.png",url:"Drive-Mad",t:["driving","physics"],d:"Navigate obstacle courses in this physics-based driving challenge!"},
+  {n:"Duck Life 4",img:"ducklife4.png",url:"Duck-Life-4",t:["simulation","sports"],d:"Train your duck to become a champion racer! Compete in races."},
+  {n:"Eggy Car",img:"eggycar.png",url:"Eggy-Car",t:["driving","physics"],d:"Drive with a fragile egg! Navigate hills without letting it fall."},
+  {n:"Block Blast",img:"block-blast.png",url:"Block-Blast",t:["puzzle","arcade"],d:"Clear blocks and create explosive combos! Place blocks strategically."},
+  {n:"Basket Random",img:"basketrandom.png",url:"Basket-Random",t:["sports","basketball"],d:"Wacky basketball with ragdoll physics! One-button controls in wild environments."},
+  {n:"Cursed Treasure 1",img:"cursedtreasure1.png",url:"Cursed-Treasure",t:["tower defense","strategy"],d:"Defend cursed gems from heroes! Build crypts and orc towers."},
+  {n:"Cursed Treasure 2",img:"cursedtreasure2.png",url:"Cursed-Treasure-2",t:["tower defense","strategy"],d:"Enhanced evil empire defense! More towers and deeper strategy."},
+  {n:"Crossing the Pit",img:"crossingthepit.png",url:"Crossing-The-Pit",t:["adventure","puzzle"],d:"Navigate a treacherous pit filled with deadly obstacles!"},
+  {n:"Breaking The Bank",img:"breakingthebank.png",url:"Breaking-The-Bank",t:["adventure","comedy"],d:"Henry Stickmin's first heist! Choose methods to break into the bank."},
+  {n:"Bubble Tanks TD 1",img:"bubbletanks1.png",url:"Bubble-Tanks-TD-1",t:["tower defense","strategy"],d:"Defend against bubble enemies with unique bubble-powered towers!"},
+  {n:"Bubble Tanks TD 2",img:"bubble-tanks-2.jpg",url:"Bubble-Tanks-TD-2",t:["tower defense","strategy"],d:"More bubble battles with advanced towers and tougher enemies!"},
+  {n:"Bubble Tanks Arena",img:"bubbletanksarena.png",url:"Bubble-Tanks-Arena",t:["shooter","action"],d:"Control your own bubble tank! Battle enemies and grow larger."},
+  {n:"Gun Mayham 2",img:"gunmayham2.png",url:"Gun-Mayham-2",t:["shooter","action"],d:"Chaotic platform battles with various weapons in destructible environments!"},
+  {n:"Gun Mayham Redux",img:"gunmayhamredux.png",url:"Gun-Mayham-Redux",t:["shooter","action"],d:"Enhanced Gun Mayham with better graphics and updated mechanics!"},
+  {n:"Happy Wheels",img:"happywheels.png",url:"Happy-Wheels",t:["physics","ragdoll"],d:"Hilariously brutal physics platformer! Navigate deadly obstacle courses."},
+  {n:"Idle Mining Empire",img:"idleminingempire.png",url:"Idle-Mining-Empire",t:["idle","simulation"],d:"Build a mining empire! Hire miners, upgrade equipment, profit offline."},
+  {n:"Among Us Online",img:"Sus.jpg",url:"AmongUs-Online",t:["multiplayer","social"],d:"Fan-made Among Us! Complete tasks as crewmate or deceive as impostor."},
+  {n:"Among Us Online 2",img:"Sus.jpg",url:"AmongUs-Online-2",t:["multiplayer","social"],d:"Alternative Among Us server! Same thrilling gameplay."},
+  {n:"Iron Snout",img:"ironsnout.png",url:"Iron-Snout",t:["fighting","action"],d:"Kung-fu fighting pig vs wolves! Quick reflexes and deep combos."},
+  {n:"Jelly Truck",img:"jellytruck.jpg",url:"Jelly-Truck",t:["driving","physics"],d:"Drive a wobbly jelly truck through squishy physics-based obstacles!"},
+  {n:"Kingdom Rush",img:"kingdomrush.png",url:"Kingdom-Rush",t:["tower defense","strategy"],d:"Legendary tower defense! Build towers and command heroes."},
+  {n:"Learn to Fly 2",img:"learntofly2.jpg",url:"Learn-To-Fly-2",t:["arcade","launcher"],d:"Help a penguin achieve flight! Glide, bounce and upgrade to fly further."},
+  {n:"Learn to Fly 3",img:"Learntofly3.jpg",url:"Learn-To-Fly-3",t:["arcade","launcher"],d:"Ultimate penguin flight! Build custom machines and explore story mode."},
+  {n:"Motherload",img:"motherload.jpg",url:"Motherload",t:["mining","arcade"],d:"Dig deep into Mars for minerals! Upgrade your pod and discover secrets."},
+  {n:"MotoX3M 2",img:"moto3xm2.png",url:"Moto3XM-2",t:["racing","motorcycle"],d:"Motorcycle stunt racing! Navigate obstacle-filled tracks with flips."},
+  {n:"MotoX3M 3",img:"moto3xm3.png",url:"Moto3XM-3",t:["racing","motorcycle"],d:"Third installment with new tracks and adrenaline-pumping stunts!"},
+  {n:"MotoX3M",img:"moto3xm.png",url:"Moto3XM",t:["racing","motorcycle"],d:"Original motorcycle stunt racer! Explosive courses and death-defying stunts."},
+  {n:"Poly Track New",img:"polytrack-new.png",url:"Polytrack-New",t:["racing","low-poly"],d:"Race on colorful low-poly tracks! Drift, jump and speed through vibrant courses."},
+  {n:"Poly Track Modded",img:"polytrackmodded.png",url:"Polytrack-Modded",t:["racing","low-poly"],d:"Modified Poly Track with custom cars and enhanced features!"},
+  {n:"Poly Track Old",img:"polytrack-old.jpg",url:"Polytrack-Old",t:["racing","low-poly"],d:"Classic Poly Track! Original low-poly racing with nostalgic gameplay."},
+  {n:"Portal Flash",img:"portalflash.jpg",url:"Portal-Flash",t:["puzzle","platformer"],d:"2D Portal adaptation! Use portals to solve physics puzzles in test chambers."},
+  {n:"Raft Wars",img:"raftwars.png",url:"Raft-Wars",t:["shooter","strategy"],d:"Defend your treasure! Turn-based shooting with strategic angles."},
+  {n:"Raft Wars 2",img:"raftwars2.png",url:"Raft-Wars-2",t:["shooter","strategy"],d:"Continue defending treasure with new enemies and locations!"},
+  {n:"Retro Bowl",img:"retrobowl.jpg",url:"Retro-Bowl",t:["sports","football"],d:"Manage and play American football! Call plays and win championships."},
+  {n:"Run 3",img:"run3.png",url:"Run-3",t:["platformer","runner"],d:"Infinite tunnel running! Multiple characters and gravity-defying gameplay."},
+  {n:"Slope",img:"slope.jpg",url:"Slope",t:["runner","arcade"],d:"Race down an infinite slope at breakneck speed! Dodge obstacles endlessly."},
+  {n:"Snow Rider 3D",img:"snow-rider-3d.jpg",url:"Snow-Rider-3D",t:["racing","3d"],d:"Sled down snowy mountains! Dodge obstacles and collect presents."},
+  {n:"Super Smash Flash",img:"super-smash-flash.jpg",url:"Super-Smash-Flash",t:["fighting","platformer"],d:"Fan-made Smash Bros! Platform fighting with iconic characters."},
+  {n:"Swords & Souls",img:"swordsandsouls.jpg",url:"Swords-And-Souls",t:["rpg","training"],d:"Train your warrior and battle in arenas! Mini-games improve stats."},
+  {n:"Tanuki Sunset",img:"tanukisunset.jpg",url:"Tanuki-Sunset",t:["racing","skateboarding"],d:"Skateboard down sunset roads as a raccoon! Drift and enjoy vaporwave vibes."},
+  {n:"There Is No Game",img:"thereisnogame.jpg",url:"There-Is-No-Game",t:["puzzle","comedy"],d:"A game insisting there's no game! Break the fourth wall with hilarious meta-puzzles."},
+  {n:"Minecraft Classic",img:"minecraft.jpg",url:"Minecraft-Online",t:["sandbox","building"],d:"Classic Minecraft in browser! Creative building and multiplayer."},
+  {n:"Eaglercraft",img:"eaglercraft.jpg",url:"Eaglercraft",t:["sandbox","survival"],d:"Browser-based Minecraft! Survive, build and explore with multiplayer."},
+  {n:"Chatroom",img:"chatroom.png",url:"Chat-Room",t:["social","multiplayer"],d:"Connect and chat with players online! Make friends in this browser chatroom."},
+  {n:"Hobo 1",img:"hobo1.png",url:"Hobo-1",t:["fighting","action"],d:"Fight for survival as a hobo! Bizarre combat moves and dark humor."},
+  {n:"Hobo 2",img:"hobo2.png",url:"Hobo-2",t:["fighting","action"],d:"Prison brawling! Fight guards and inmates with gross special moves."},
+  {n:"Hobo 3",img:"hobo3.png",url:"Hobo-3",t:["fighting","action"],d:"More bizarre fighting scenarios! Expanded move list."},
+  {n:"Hobo 4",img:"hobo4.png",url:"Hobo-4",t:["fighting","action"],d:"Face absurd enemies with more levels and outrageous situations!"},
+  {n:"Hobo 5",img:"hobo5.png",url:"Hobo-5",t:["fighting","action"],d:"Space hobo adventure! Crude combat meets alien enemies."},
+  {n:"Hobo 6",img:"hobo6.png",url:"Hobo-6",t:["fighting","action"],d:"Continued hobo battles with more abilities and unique humor!"},
+  {n:"Hobo 7",img:"hobo7.png",url:"Hobo-7",t:["fighting","action"],d:"Final hobo chapter! Epic battles conclude the series."},
+  {n:"Riddle School 1",img:"riddleschool1.png",url:"Riddle-School-1",t:["adventure","puzzle"],d:"Escape from school! Point-and-click puzzles with pixel graphics."},
+  {n:"Riddle School 2",img:"riddleschool2.png",url:"Riddle-School-2",t:["adventure","puzzle"],d:"Another school escape! More puzzles and locations."},
+  {n:"Riddle School 3",img:"riddleschool3.png",url:"Riddle-School-3",t:["adventure","puzzle"],d:"Escape continues! Explore school and solve clever puzzles."},
+  {n:"Riddle School 4",img:"riddleschool4.png",url:"Riddle-School-4",t:["adventure","puzzle"],d:"More puzzle-solving escapades with humorous situations!"},
+  {n:"Riddle School 5",img:"riddleschool5.png",url:"Riddle-School-5",t:["adventure","puzzle"],d:"Epic series conclusion! Bigger puzzles and deeper story."},
+  {n:"Riddle School Transfer",img:"riddleschooltransfer.png",url:"Riddle-School-Transfer",t:["adventure","puzzle"],d:"Spin-off with new protagonist in a different school setting!"},
+  {n:"Riddle School Transfer 2",img:"riddleschooltransfer2.png",url:"Riddle-School-Transfer-2",t:["adventure","puzzle"],d:"Transfer storyline continues with more puzzles!"},
+  {n:"Sift Heads 1",img:"siftheads1.png",url:"Sift-Heads-1",t:["shooter","action"],d:"Professional hitman! Complete assassination contracts with precision."},
+  {n:"Sift Heads 2",img:"siftheads2.png",url:"Sift-Heads-2",t:["shooter","action"],d:"More assassinations! Improved weapons and new targets."},
+  {n:"Sift Heads 3",img:"siftheads3.png",url:"Sift-Heads-3",t:["shooter","action"],d:"Trilogy conclusion! Epic missions and cinematic stick figure action."},
+  {n:"Sift Heads 4",img:"siftheads4.png",url:"Sift-Heads-4",t:["shooter","action"],d:"Beyond the trilogy! New storylines and expanded gameplay."},
+  {n:"Sift Heads 5",img:"siftheads5.png",url:"Sift-Heads-5",t:["shooter","action"],d:"Multiple characters and varied missions! Series evolution continues."},
+  {n:"Deep Sleep 1",img:"deepsleep1.png",url:"Deep-Sleep-1",t:["horror","adventure"],d:"Navigate nightmarish dreamscapes with psychological horror!"},
+  {n:"Deep Sleep 2",img:"deepsleep2.png",url:"Deep-Sleep-2",t:["horror","adventure"],d:"Deeper into nightmares! More disturbing imagery and harder puzzles."},
+  {n:"Deep Sleep 3",img:"deepsleep3.png",url:"Deep-Sleep-3",t:["horror","adventure"],d:"Nightmare trilogy finale! Confront fears and escape deep sleep."},
+  {n:"Don't Escape 1",img:"dontescape1.png",url:"Dont-Escape-1",t:["horror","puzzle"],d:"Lock yourself in! Reverse-escape where you prevent transformation."},
+  {n:"Don't Escape 2",img:"dontescape2.png",url:"Dont-Escape-2",t:["horror","survival"],d:"Zombie survival! Secure shelter before nightfall."},
+  {n:"Don't Escape 3",img:"dontescape3.png",url:"Dont-Escape-3",t:["horror","adventure"],d:"Space station horror! Investigate mysteries and manage resources."},
+  {n:"Burrito Bison",img:"burritobison.png",url:"Burrito-Bison",t:["arcade","launcher"],d:"Launch wrestler through candy land! Bounce off gummy bears."},
+  {n:"Burrito Bison Revenge",img:"burritobisonrevenge.png",url:"Burrito-Bison-Revenge",t:["arcade","launcher"],d:"Revenge bouncing! More upgrades in enhanced launcher action."},
+  {n:"Burrito Bison 3",img:"burrito-bison-3.png",url:"Burrito-Bison-3",t:["arcade","launcher"],d:"Epic launcher trilogy finale! Multiple characters and biggest candy land."},
+  {n:"Zombotron",img:"zombotron.png",url:"Zombotron",t:["platformer","shooter"],d:"Fight zombies and robots on alien planet with physics-based shooting!"},
+  {n:"Zombotron 2",img:"zombotron2.png",url:"Zombotron-2",t:["platformer","shooter"],d:"Continue alien zombie adventure! More weapons and bigger levels."},
+  {n:"The Impossible Quiz",img:"theimpossiblequiz.png",url:"The-Impossible-Quiz-Deluxe",t:["quiz","puzzle"],d:"Impossibly tricky questions! Think outside the box with logic and absurdity."},
+  {n:"The Impossible Quiz 2",img:"theimpossiblequiz2.png",url:"The-Impossible-Quiz-2",t:["quiz","puzzle"],d:"More impossible questions! New tricks and harder challenges."},
+  {n:"Strikeforce Kitty 2",img:"strikeforcekitty2.png",url:"Strikeforce-Kitty-2",t:["runner","action"],d:"Cat squad runner! Collect costumes, defeat enemies, rescue princess."},
+  {n:"Strikeforce Kitty",img:"strikeforcekitty.png",url:"Strikeforce-Kitty",t:["runner","action"],d:"Original kitten rescue! Build team and run through enemies."},
+  {n:"Strikeforce Heroes",img:"strikeforceheroes.png",url:"Strikeforce-Heroes",t:["shooter","action"],d:"Side-scrolling shooter with RPG! Choose classes and unlock weapons."},
+  {n:"Stealing the Diamond",img:"stealingthediamond.png",url:"Stealing-The-Diamond",t:["adventure","comedy"],d:"Henry Stickmin heist! Choose methods to steal the diamond."},
+  {n:"Papa's Wingeria",img:"papaswingeria.png",url:"Papas-Wing",t:["simulation","cooking"],d:"Run a chicken wing restaurant! Take orders and serve customers."},
+  {n:"Papa's Pancakeria",img:"papaspancakeria.png",url:"Papas-PnCk",t:["simulation","cooking"],d:"Flip pancakes for hungry customers! Cook perfectly."},
+  {n:"Papa's Pasteria",img:"papaspasteria.png",url:"Papas-Pasta",t:["simulation","cooking"],d:"Cook pasta dishes! Boil, add sauce and serve with sides."},
+  {n:"Papa Louie 1",img:"papalouie1.png",url:"Papas-Louie-1",t:["platformer","adventure"],d:"First platforming adventure! Battle food monsters and rescue customers."},
+  {n:"Papa Louie 2",img:"papalouie2.png",url:"Papas-Louie-2",t:["platformer","adventure"],d:"Burger attack! Multiple characters with unique abilities."},
+  {n:"The Binding of Isaac",img:"thebindingofissac.png",url:"The-Binding-Of-Isaac",t:["roguelike","shooter"],d:"Dark roguelike shooter! Random dungeons and bizarre items."},
+  {n:"Papa's Scooperia",img:"papasscooperia.png",url:"Papa-Scoop",t:["simulation","cooking"],d:"Ice cream parlor! Scoop and create perfect sundaes."},
+  {n:"Bloons Tower Defence",img:"bloons-tower-defence.jpg",url:"Bloons-Tower-Defence",t:["tower defense","strategy"],d:"Original balloon-popping tower defense that started the franchise!"},
+  {n:"Bloons Tower Defence 2",img:"bloons-tower-defence-2.jpg",url:"Bloons-Tower-Defence-2",t:["tower defense","strategy"],d:"Classic Bloons TD sequel! More towers and balloon types."},
+  {n:"Bloons Tower Defence 3",img:"bloons-tower-defence-3.jpg",url:"Bloons-Tower-Defence-3",t:["tower defense","strategy"],d:"Even more monkeys and bloons! Special agents and new tracks."},
+  {n:"Troll Face Quest",img:"trollface-quest.jpg",url:"Troll-Face-Quest",t:["puzzle","comedy"],d:"Ridiculous puzzles! Embrace meme humor and get trolled!"},
+  {n:"Troll Face Quest 2",img:"trollface-quest-2.jpg",url:"Troll-Face-Quest-2",t:["puzzle","comedy"],d:"More trolling! New scenarios and harder challenges."},
+  {n:"Troll Face Quest 3",img:"trollface-quest-3.jpg",url:"Troll-Face-Quest-3",t:["puzzle","comedy"],d:"Trolling continues with pop culture references!"},
+  {n:"Troll Face Quest 4",img:"trollface-quest-4.jpg",url:"Troll-Face-Quest-4",t:["puzzle","comedy"],d:"Get trolled again in the fourth installment!"},
+  {n:"Troll Face Quest 5",img:"trollface-quest-5.jpg",url:"Troll-Face-Quest-5",t:["puzzle","comedy"],d:"Final trollish puzzles! Most ridiculous challenges."},
+  {n:"This Is The Only Level",img:"this-is-the-only-level.png",url:"This-Is-The-Only-Level",t:["platformer","puzzle"],d:"Same level, 30 different ways! Each replay changes the rules."},
+  {n:"Territory War",img:"territory-war.jpg",url:"Territory-War",t:["strategy","turn-based"],d:"Turn-based stick warfare! Control squad and use weapons strategically."},
+  {n:"Super Meat Boy",img:"super-meat-boy.png",url:"Super-Meat-Boy",t:["platformer","difficult"],d:"Brutally difficult precision platformer! Instant death, pixel-perfect challenges."},
+  {n:"Storm The House",img:"storm-the-house.jpg",url:"Storm-The-House",t:["shooter","defense"],d:"Defend your house from attackers! Shoot enemies and upgrade weapons."},
+  {n:"Storm The House 2",img:"storm-the-house-2.jpg",url:"Storm-The-House-2",t:["shooter","defense"],d:"Enhanced defense! Better graphics and more weapons."},
+  {n:"Stick War 1",img:"stick-war.jpg",url:"Stick-War-1",t:["strategy","rts"],d:"RTS with stick figures! Mine resources, build units, conquer nations."},
+  {n:"Stick War 2",img:"stick-war-2.png",url:"Stick-War-2",t:["strategy","rts"],d:"Order vs Chaos! New units and abilities in refined stick strategy."},
+  {n:"Stick RPG",img:"stick-rpg.jpg",url:"Stick-RPG",t:["rpg","simulation"],d:"Live stick figure life! Work jobs, level stats, make money."},
+  {n:"Stick Madness",img:"stickmadness.png",url:"Stick-Madness",t:["fighting","action"],d:"Fast stick combat! Brutal melee and ranged attacks."},
+  {n:"Stick Madness 2",img:"stickmadness2.png",url:"Stick-Madness-2",t:["fighting","action"],d:"More intense battles! Enhanced combat and tougher enemies."},
+  {n:"Stick Empires",img:"stick-empires.png",url:"Stick-Empires",t:["strategy","multiplayer"],d:"Massive multiplayer stick RTS! Build armies and battle online."},
+  {n:"Shopping Cart Hero",img:"shopping-cart-hero.jpg",url:"Shopping-Cart-Hero",t:["arcade","launcher"],d:"Launch yourself in a shopping cart! Perform tricks and upgrade."},
+  {n:"Shopping Cart Hero 2",img:"shopping-cart-hero-2.jpg",url:"Shopping-Cart-Hero-2",t:["arcade","launcher"],d:"Bigger cart jumps with new tricks and features!"},
+  {n:"Shopping Cart Hero 3",img:"shopping-cart-hero-3.jpg",url:"Shopping-Cart-Hero-3",t:["arcade","launcher"],d:"Ultimate cart trilogy! Maximum jumps and best upgrades."},
+  {n:"Sentry Knight",img:"sentryknight.png",url:"Sentry-Knight",t:["defense","rpg"],d:"Lone knight defense! Shoot arrows, use magic and upgrade abilities."},
+  {n:"Into Space 1",img:"intospace1.png",url:"Into-Space-1",t:["arcade","launcher"],d:"Launch rocket into space! Upgrade ship and reach incredible heights."},
+  {n:"Into Space 2",img:"intospace2.png",url:"Into-Space-2",t:["arcade","launcher"],d:"Continue space exploration with more upgrades and new planets!"},
+  {n:"Into Space 3",img:"intospace3.png",url:"Into-Space-3",t:["arcade","launcher"],d:"Ultimate space journey! Biggest rockets and furthest distances."},
+  {n:"QWOP",img:"qwop.jpg",url:"qwop",t:["sports","athletics"],d:"Control individual leg muscles to run! Hilariously difficult track game."},
+  {n:"Pandemic",img:"pandemic.jpg",url:"Pandemic",t:["strategy","simulation"],d:"Evolve a disease to infect the world! Strategic plague mechanics."},
+  {n:"Pandemic 2",img:"pandemic-2.jpg",url:"Pandemic-2",t:["strategy","simulation"],d:"Enhanced plague evolution! More countries and better mechanics."},
+  {n:"Madness Project Nexus",img:"madness-project-nexus.jpg",url:"Madness-Project-Nexus",t:["shooter","action"],d:"Intense stick figure combat! Story mode and arena battles."},
+  {n:"Interactive Buddy",img:"interactive-buddy.png",url:"Interactive-Buddy",t:["sandbox","simulation"],d:"Interact with virtual buddy! Countless items and interactions."},
+  {n:"Infiltrating The Airship",img:"infiltratingtheairship.png",url:"Infiltrating-The-Airship",t:["adventure","comedy"],d:"Henry Stickmin infiltrates an airship! Choose methods."},
+  {n:"Hedgehog Launch",img:"hedgehoglaunch.png",url:"Hedgehog-Launch",t:["arcade","launcher"],d:"Launch hedgehog to space! Bounce, fly and upgrade equipment."},
+  {n:"Fleeing The Complex",img:"fleeingthecomplex.png",url:"Fleeing-The-Complex",t:["adventure","comedy"],d:"Henry Stickmin prison escape! Multiple paths and comedy."},
+  {n:"Fat Cat",img:"fat-cat.png",url:"Fat-Cat",t:["puzzle","physics"],d:"Feed the hungry cat! Physics-based puzzles to deliver food."},
+  {n:"Duck Life",img:"ducklife.jpg",url:"Duck-Life",t:["simulation","sports"],d:"Train duck for racing! Run, swim and fly with charming progression."},
+  {n:"Duck Life 2",img:"ducklife-2.jpg",url:"Duck-Life-2",t:["simulation","sports"],d:"More duck training! Enhanced mini-games and racing challenges."},
+  {n:"Duck Life 3",img:"ducklife-3.png",url:"Duck-Life-3",t:["simulation","sports"],d:"Duck evolution! New training modes and expanded racing."},
+  {n:"Don't Whack Your Boss",img:"dontwackyourboss.png",url:"Dont-Whack-Your-Boss",t:["comedy","interactive"],d:"Stress relief! Find creative ways to express workplace frustration."},
+  {n:"Dig To China",img:"digtochina.png",url:"Dig-To-China",t:["mining","arcade"],d:"Dig deep underground! Mine resources and upgrade your drill."},
+  {n:"Crush The Castle",img:"crushthecastle.png",url:"Crush-The-Castle",t:["physics","strategy"],d:"Destroy castles with trebuchet! Physics-based destruction."},
+  {n:"Crush The Castle 2",img:"crushthecastle2.png",url:"Crush-The-Castle-2",t:["physics","strategy"],d:"More castle crushing! New projectiles and bigger castles."},
+  {n:"Clicker Heroes",img:"clickerheroes.png",url:"Clicker-Heroes",t:["idle","rpg"],d:"Click to defeat monsters! Hire heroes and ascend for bonuses."},
+  {n:"Canabalt",img:"canabalt.png",url:"Canabalt",t:["runner","arcade"],d:"Endless rooftop running! Jump between buildings in the minimalist genre-definer."},
+  {n:"Cactus McCoy 2",img:"cactusmccoy2.png",url:"Cactus-McCoy-2",t:["platformer","action"],d:"Cactus adventure! Beat enemies, collect treasures and use various weapons."},
+  {n:"Age Of War",img:"ageofwar.png",url:"Age-Of-War",t:["strategy","defense"],d:"Evolve through ages while defending base! Cavemen to future soldiers."},
+  {n:"Age Of War 2",img:"age-of-war-2.jpg",url:"Age-Of-War-2",t:["strategy","defense"],d:"Enhanced age evolution! More eras and better graphics."},
+  {n:"Achievement Unlocked",img:"achievementunlocked.png",url:"Achievement-Unlocked",t:["platformer","comedy"],d:"Get achievements for everything! Meta-game about achievements."},
+  {n:"Achievement Unlocked 2",img:"achievementunlocked2.png",url:"Achievement-Unlocked-2",t:["platformer","comedy"],d:"More achievement madness! Even more ridiculous achievements."},
+  {n:"Achievement Unlocked 3",img:"achievementunlocked3.png",url:"Achievement-Unlocked-3",t:["platformer","comedy"],d:"Ultimate achievement game! Most meta achievements ever."},
+  {n:"Mini Metro",img:"minimetro.png",url:"Mini-Metro",t:["puzzle","strategy"],d:"Build subway system! Connect stations efficiently."},
+  {n:"Awesome Cars",img:"awesome-cars.png",url:"Awesome-Cars",t:["racing","action"],d:"Fast-paced car combat! Race and battle with weapons."},
+  {n:"Bartender The Right Mix",img:"bartender-the-right-mix.jpg",url:"Bartender-The-Right-Mix",t:["simulation","puzzle"],d:"Mix perfect cocktails! Combine ingredients to satisfy customers."},
+  {n:"Bejeweled",img:"bejeweled.jpg",url:"Bejeweled",t:["puzzle","match-3"],d:"Match gems to clear board! Classic match-3 puzzle that defined the genre."},
+  {n:"Billiards",img:"billards.png",url:"Billards",t:["sports","simulation"],d:"Classic pool! Sink balls with realistic physics and strategic shots."},
+  {n:"Bloxorz",img:"bloxorz.jpg",url:"Bloxorz",t:["puzzle","logic"],d:"Roll block into hole! Mind-bending spatial puzzle with clever levels."},
+  {n:"Cooking Mama",img:"cooking-mama.png",url:"Cooking-Mama",t:["simulation","cooking"],d:"Cook recipes with Mama! Follow instructions and create delicious dishes."},
+  {n:"Crash Bandicoot Flash",img:"crash-bandicoot.jpg",url:"Crash-Bandicoot",t:["platformer","adventure"],d:"Fan-made Crash adventure! Spin, jump and collect fruit."},
+  {n:"Doodle Jump",img:"doodle-jump.png",url:"Doodle-Jump",t:["arcade","platformer"],d:"Jump endlessly upward! Tilt and shoot in addictive vertical platformer."},
+  {n:"Earn to Die",img:"earn-to-die.png",url:"Earn-To-Die",t:["driving","zombie"],d:"Drive through zombie apocalypse! Upgrade vehicle and smash the undead."},
+  {n:"Earn to Die 2",img:"earn-to-die-2.jpg",url:"Earn-To-Die-2",t:["driving","zombie"],d:"Continue zombie driving! More vehicles and bigger hordes."},
+  {n:"Earn to Die 2 Exodus",img:"earn-to-die-2-exodus.jpg",url:"Earn-To-Die-2-Exodus",t:["driving","zombie"],d:"Final exodus from zombies! Ultimate vehicles and longest journey."},
+  {n:"Factory Balls",img:"factory-balls.jpg",url:"Factory-Balls",t:["puzzle","logic"],d:"Paint balls to match pattern! Use tools in the correct order."},
+  {n:"Factory Balls 2",img:"factory-balls-2.png",url:"Factory-Balls-2",t:["puzzle","logic"],d:"More ball painting puzzles! New tools and harder patterns."},
+  {n:"Factory Balls 3",img:"factory-balls-3.png",url:"Factory-Balls-3",t:["puzzle","logic"],d:"Third ball factory! Complex patterns and creative solutions."},
+  {n:"Factory Balls 4",img:"factory-balls-4.png",url:"Factory-Balls-4",t:["puzzle","logic"],d:"Ultimate factory puzzles! Most challenging patterns."},
+  {n:"Fancy Pants Adventures",img:"fancy-pants-adventures.png",url:"Fancy-Pants-Adventures",t:["platformer","adventure"],d:"Fluid stick figure platforming! Run, slide and jump through hand-drawn worlds."},
+  {n:"Fancy Pants Adventures 2",img:"fancy-pants-adventures-2.png",url:"Fancy-Pants-Adventures-2",t:["platformer","adventure"],d:"More fancy adventures! Expanded levels and new moves."},
+  {n:"Fireboy & Watergirl",img:"fireboy-and-watergirl-1.jpg",url:"Fireboy-and-Watergirl",t:["puzzle","co-op"],d:"Cooperative puzzle platformer! Control elemental characters together."},
+  {n:"Fireboy & Watergirl 2",img:"fireboy-and-watergirl-2.jpg",url:"Fireboy-and-Watergirl-2",t:["puzzle","co-op"],d:"Light Temple! Mirrors, beams and teamwork in elemental puzzle sequel."},
+  {n:"Fireboy & Watergirl 3",img:"fireboy-and-watergirl-3.jpg",url:"Fireboy-and-Watergirl-3",t:["puzzle","co-op"],d:"Ice Temple! Slippery surfaces and frozen cooperative challenges."},
+  {n:"Flash Flight Simulator",img:"flash-flight-simulator.jpg",url:"Flash-Flight-Simulator-1",t:["simulation","flight"],d:"Realistic aircraft control! Authentic physics, takeoffs and landings."},
+  {n:"Gunblood",img:"gunblood.png",url:"Gunblood",t:["shooter","western"],d:"Wild West quick-draw duels! Speed and accuracy in classic standoffs."},
+  {n:"Johnny Upgrade",img:"johnny-upgrade.png",url:"Johnny-Upgrade",t:["platformer","arcade"],d:"Start with nothing, upgrade everything! Progressive ability purchases."},
+  {n:"Mutilate a Doll 2",img:"mutilate-a-doll-2.jpg",url:"Mutilate-A-Doll-Two",t:["sandbox","physics"],d:"Physics sandbox destruction! Spawn ragdolls and experiment."},
+  {n:"Pico vs Uberkids",img:"pico-vs-uberkids.jpg",url:"Pico-vs-uberkids",t:["action","shooter"],d:"Pico battles Uberkids! Fast action shooting from Newgrounds."},
+  {n:"Pico's School",img:"picos-school.jpg",url:"Picos-school",t:["adventure","shooter"],d:"Legendary Newgrounds classic! Point-and-click adventure with dark humor."},
+  {n:"Pico's School 2",img:"picos-school-2.png",url:"Picos-school-2",t:["adventure","shooter"],d:"Pico's adventure continues! More action and new threats."},
+  {n:"Red Ball",img:"red-ball.png",url:"Red-ball",t:["platformer","puzzle"],d:"Roll and jump through levels! Physics-based platforming fun."},
+  {n:"Red Ball 2",img:"red-ball-2.jpg",url:"Red-ball-2",t:["platformer","puzzle"],d:"Red ball returns! New levels and fresh challenges."},
+  {n:"Red Ball 3",img:"red-ball-3.jpg",url:"Red-ball-3",t:["platformer","puzzle"],d:"More rolling fun! New environments and tougher puzzles."},
+  {n:"Red Ball 4",img:"red-ball-4.png",url:"Red-ball-4",t:["platformer","puzzle"],d:"Save world from evil squares! Most polished entry in the series."},
+  {n:"Road of the Dead",img:"road-of-the-dead.jpg",url:"Road-of-the-dead",t:["action","driving"],d:"Drive through zombie apocalypse! Plow zombies and escape."},
+  {n:"Road of the Dead 2",img:"road-of-the-dead-2.png",url:"Road-of-the-dead-2",t:["action","driving"],d:"Zombie highway sequel! Bigger hordes and enhanced action."},
+  {n:"Run",img:"run.png",url:"Run",t:["platformer","runner"],d:"Defy gravity in space tunnel! Rotate world and avoid gaps."},
+  {n:"Run 2",img:"run-2.jpg",url:"Run-2",t:["platformer","runner"],d:"Gravity-defying sequel! Multiple characters and complex tunnels."},
+  {n:"Sniper Assassin",img:"sniper-assassin.jpg",url:"Sniper-Assassin",t:["shooter","puzzle"],d:"Professional hitman contracts! Observe carefully and eliminate targets."},
+  {n:"Sniper Assassin 2",img:"sniper-assassin-2.png",url:"Sniper-assassin-2",t:["shooter","puzzle"],d:"More sniper missions! New targets and complex scenarios."},
+  {n:"Sniper Assassin 3",img:"sniper-assassin-3.jpg",url:"Sniper-assassin-3",t:["shooter","puzzle"],d:"Trilogy concludes! Most challenging contracts requiring perfection."},
+  {n:"Sniper Assassin 4",img:"sniper-assassin-4.jpg",url:"Sniper-assassin-4",t:["shooter","puzzle"],d:"Beyond trilogy! Enhanced mechanics and deadly missions."},
+  {n:"Sniper Assassin 5",img:"sniper-assassin-5.jpg",url:"Sniper-assassin-5",t:["shooter","puzzle"],d:"Ultimate sniper challenge! Most complex targets and highest stakes."},
+  {n:"Toss the Turtle",img:"toss-the-turtle.jpg",url:"Toss-the-turtle",t:["arcade","launcher"],d:"Launch turtle with cannons! Explosive launcher with humorous upgrades."},
+  {n:"Unfair Mario",img:"unfair-mario.jpg",url:"Unfair-mario",t:["platformer","rage"],d:"Looks like Mario but plays nothing like it! Hidden traps everywhere."},
+  {n:"Jacksmith",img:"jacksmith.png",url:"Jacksmith",t:["strategy","crafting"],d:"Donkey blacksmith! Forge weapons and send warriors to battle."}
+];
 
-  const recentGrid = document.getElementById("recent-grid");
-  const recentEmpty = document.getElementById("recent-empty");
-  const favoritesGrid = document.getElementById("favorites-grid");
-  const favoritesEmpty = document.getElementById("favorites-empty");
+/* ===== CATEGORY ASSIGNMENTS ===== */
+const SPORT_URLS = {
+  basketball: ['Basket-Random'],
+  soccer:     ['qwop'],
+  nfl:        ['Retro-Bowl'],
+  hockey:     ['Billards'],
+  athletics:  ['Duck-Life','Duck-Life-2','Duck-Life-3','Duck-Life-4','qwop','Run','Run-2','Run-3','Canabalt','Slope','Learn-To-Fly-2','Learn-To-Fly-3','QWOP'],
+  racing:     ['MotoX3M','MotoX3M-2','MotoX3M-3','Moto3XM','Moto3XM-2','Moto3XM-3','Polytrack-New','Polytrack-Modded','Polytrack-Old','Snow-Rider-3D','Tanuki-Sunset','Drive-Mad','Eggy-Car','Jelly-Truck','Shopping-Cart-Hero','Shopping-Cart-Hero-2','Shopping-Cart-Hero-3','Awesome-Cars','Earn-To-Die','Earn-To-Die-2','Earn-To-Die-2-Exodus','Road-of-the-dead','Road-of-the-dead-2'],
+  fighting:   ['Iron-Snout','Super-Smash-Flash','Hobo-1','Hobo-2','Hobo-3','Hobo-4','Hobo-5','Hobo-6','Hobo-7','Stick-Madness','Stick-Madness-2','Swords-And-Souls','Gunblood','Madness-Project-Nexus','Pico-vs-uberkids']
+};
 
-  const catGrids = {
-    basketball: document.getElementById("basketball-grid"),
-    soccer: document.getElementById("soccer-grid"),
-    nfl: document.getElementById("nfl-grid"),
-    hockey: document.getElementById("hockey-grid"),
-    athletics: document.getElementById("athletics-grid"),
-    racing: document.getElementById("racing-grid"),
-    fighting: document.getElementById("fighting-grid")
-  };
+// Games explicitly in sports cats
+const sportSet = new Set(Object.values(SPORT_URLS).flat());
 
-  const catEmoji = {
-    basketball: "🏀",
-    soccer: "⚽",
-    nfl: "🏈",
-    hockey: "🏒",
-    athletics: "🏃",
-    racing: "🏎️",
-    fighting: "🥊"
-  };
+// Popular = top curated picks that aren't in sport cats
+const POPULAR_PICKS = ['Slope','Basket-Random','Retro-Bowl','Iron-Snout','Moto3XM','Happy-Wheels',
+  'Polytrack-New','Run-3','Cookie-Clicker','Minecraft-Online','Eaglercraft','AmongUs-Online',
+  'Kingdom-Rush','Stick-War-1','Fireboy-and-Watergirl','The-Impossible-Quiz-Deluxe',
+  'Burrito-Bison','Clicker-Heroes','Bloons-Tower-Defence','Super-Meat-Boy','Portal-Flash',
+  'Toss-the-turtle','Fancy-Pants-Adventures','Happy-Wheels','Zombotron','Age-Of-War',
+  'Swords-And-Souls','Raft-Wars','BTD-4','Sift-Heads-1'];
 
-  let allGames = [];
-  let favorites = [];
-  let recent = [];
+const gameByUrl = {};
+GAMES.forEach(g => gameByUrl[g.url] = g);
 
-  function loadLocalState() {
-    try {
-      favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-      recent = JSON.parse(localStorage.getItem("recent") || "[]");
-    } catch {
-      favorites = [];
-      recent = [];
-    }
+// Build popular: curated list + all games NOT in any sport
+const popularSet = new Set(POPULAR_PICKS);
+const allAssigned = new Set([...sportSet, ...popularSet]);
+const overflow = GAMES.filter(g => !allAssigned.has(g.url));
+
+const CATS_DATA = {
+  popular:    { label:'Popular Games', emoji:'🔥',  games: [...POPULAR_PICKS.map(u=>gameByUrl[u]).filter(Boolean), ...overflow] },
+  basketball: { label:'Basketball',    emoji:'🏀',  games: SPORT_URLS.basketball.map(u=>gameByUrl[u]).filter(Boolean) },
+  soccer:     { label:'Soccer',        emoji:'⚽',  games: SPORT_URLS.soccer.map(u=>gameByUrl[u]).filter(Boolean) },
+  nfl:        { label:'NFL',           emoji:'🏈',  games: SPORT_URLS.nfl.map(u=>gameByUrl[u]).filter(Boolean) },
+  hockey:     { label:'Hockey',        emoji:'🏒',  games: SPORT_URLS.hockey.map(u=>gameByUrl[u]).filter(Boolean) },
+  athletics:  { label:'Athletics',     emoji:'🏃',  games: [...new Map(SPORT_URLS.athletics.map(u=>gameByUrl[u]).filter(Boolean).map(g=>[g.url,g])).values()] },
+  racing:     { label:'Racing Games',  emoji:'🏎️', games: [...new Map(SPORT_URLS.racing.map(u=>gameByUrl[u]).filter(Boolean).map(g=>[g.url,g])).values()] },
+  fighting:   { label:'Fighting Games',emoji:'🥊',  games: SPORT_URLS.fighting.map(u=>gameByUrl[u]).filter(Boolean) }
+};
+
+/* ===== RENDER ===== */
+function e(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function cardHTML(g) {
+  const tags = (g.t||[]).slice(0,2).map(t=>`<span class="tag">${e(t)}</span>`).join('');
+  return `<div class="game-card" onclick="openGame('${e(g.url)}','${e(g.n)}')">
+    <div class="thumb-wrap">
+      <img src="${IMG+g.img}" alt="${e(g.n)}" loading="lazy"
+        onerror="this.onerror=null;this.src='https://placehold.co/300x126/0d1235/00d4ff?text=${encodeURIComponent(g.n)}'">
+      <div class="thumb-grad"></div>
+      <div class="play-layer"><div class="play-circle">▶</div></div>
+    </div>
+    <div class="game-info">
+      <div class="game-name">${e(g.n)}</div>
+      <div class="game-desc">${e((g.d||'').slice(0,70)+'...')}</div>
+      <div class="game-tags">${tags}</div>
+    </div>
+  </div>`;
+}
+
+function buildHome() {
+  const keys = ['popular','basketball','soccer','nfl','hockey','athletics','racing','fighting'];
+  document.getElementById('homeGrid').innerHTML = keys.map(k => {
+    const cat = CATS_DATA[k];
+    const prev = cat.games.slice(0,4).map(g =>
+      `<img src="${IMG+g.img}" alt="${e(g.n)}" loading="lazy"
+        onerror="this.onerror=null;this.src='https://placehold.co/54x54/0d1235/00d4ff?text=?'">`
+    ).join('');
+    return `<div class="cat-card" data-cat="${k}" onclick="goCategory('${k}')">
+      <div class="cat-glow"></div>
+      <div class="cat-top">
+        <div class="cat-emoji-big">${cat.emoji}</div>
+        <div>
+          <div class="cat-name-big">${cat.label}</div>
+          <div class="cat-count-small">${cat.games.length} game${cat.games.length!==1?'s':''} available</div>
+        </div>
+      </div>
+      <div class="cat-previews">${prev}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildCatView(k) {
+  const cat = CATS_DATA[k];
+  const el = document.getElementById('view-'+k);
+  const hdr = `<div class="cat-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2>${cat.emoji} ${cat.label}</h2>
+    <span class="count-badge">${cat.games.length} Games</span>
+  </div>`;
+  if (!cat.games.length) {
+    el.innerHTML = hdr + `<div class="empty-state"><div class="e-emoji">${cat.emoji}</div><p>No ${cat.label} games yet — check back soon!</p></div>`;
+  } else {
+    el.innerHTML = hdr + `<div class="games-grid">${cat.games.map(cardHTML).join('')}</div>`;
   }
+}
 
-  function saveLocalState() {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    localStorage.setItem("recent", JSON.stringify(recent));
+function init() {
+  buildHome();
+  Object.keys(CATS_DATA).forEach(buildCatView);
+}
+
+/* ===== NAVIGATION ===== */
+let activeView = 'home';
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  (document.getElementById('view-'+id)||document.getElementById('view-home')).classList.add('active');
+  activeView = id;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function tabHighlight(active) {
+  document.querySelectorAll('.nav-tab').forEach((t,i)=>
+    t.classList.toggle('active', CAT_ORDER[i]===active)
+  );
+}
+
+function goHome() {
+  document.getElementById('searchBox').value='';
+  tabHighlight('home');
+  showView('home');
+}
+
+function goCategory(k) {
+  document.getElementById('searchBox').value='';
+  tabHighlight(k);
+  showView(k);
+}
+
+/* ===== SEARCH ===== */
+let st;
+function handleSearch(q) {
+  clearTimeout(st);
+  st = setTimeout(()=>runSearch(q),160);
+}
+function runSearch(q) {
+  q = q.trim().toLowerCase();
+  if (!q) { if(activeView==='search') goHome(); return; }
+  const r = GAMES.filter(g =>
+    g.n.toLowerCase().includes(q) ||
+    (g.t||[]).some(t=>t.includes(q)) ||
+    (g.d||'').toLowerCase().includes(q)
+  );
+  document.getElementById('searchCount').textContent = r.length+' game'+(r.length!==1?'s':'');
+  document.getElementById('searchGrid').innerHTML = r.length
+    ? r.map(cardHTML).join('')
+    : `<div class="empty-state"><div class="e-emoji">🔍</div><p>No results for "<strong>${e(q)}</strong>"</p></div>`;
+  tabHighlight('');
+  showView('search');
+}
+function clearSearch() { document.getElementById('searchBox').value=''; goHome(); }
+
+/* ===== GAME MODAL ===== */
+function openGame(url, name) {
+  document.getElementById('modalTitle').textContent = '🎮 '+name;
+  // Try index.html first, fall back to just the directory
+  document.getElementById('gameFrame').src = BASE + url + '/index.html';
+  document.getElementById('gameModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal() {
+  document.getElementById('gameModal').classList.remove('open');
+  document.getElementById('gameFrame').src='about:blank';
+  document.body.style.overflow='';
+  if(document.fullscreenElement) document.exitFullscreen();
+}
+
+function toggleFS() {
+  const wrap = document.getElementById('iframeWrap');
+  const btn  = document.getElementById('fsBtn');
+  if (!document.fullscreenElement) {
+    wrap.requestFullscreen().then(()=>btn.textContent='⊡ Minimise').catch(()=>{});
+  } else {
+    document.exitFullscreen().then(()=>btn.textContent='⛶ Fullscreen');
   }
+}
 
-  function isFavorite(id) {
-    return favorites.includes(id);
+document.addEventListener('fullscreenchange',()=>{
+  if(!document.fullscreenElement) document.getElementById('fsBtn').textContent='⛶ Fullscreen';
+});
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+/* ===== PARTICLES ===== */
+(()=>{
+  const c=document.getElementById('particles');
+  const cols=['#00d4ff','#ff6b35','#7c3aed','#ffd700','#00ff88','#ff3388','#fff'];
+  for(let i=0;i<55;i++){
+    const p=document.createElement('div'); p.className='particle';
+    const sz=Math.random()*4+1.5, col=cols[Math.floor(Math.random()*cols.length)];
+    p.style.cssText=`left:${Math.random()*100}%;width:${sz}px;height:${sz}px;background:${col};box-shadow:0 0 ${sz*2}px ${col};animation-duration:${Math.random()*18+8}s;animation-delay:-${Math.random()*20}s;`;
+    c.appendChild(p);
   }
+})();
 
-  function toggleFavorite(id) {
-    if (isFavorite(id)) {
-      favorites = favorites.filter(x => x !== id);
-    } else {
-      favorites.push(id);
-    }
-    saveLocalState();
-    renderFavorites();
-    document.querySelectorAll(`[data-fav-id="${CSS.escape(id)}"]`).forEach(el => {
-      el.classList.toggle("active", isFavorite(id));
-    });
-  }
-
-  function addRecent(id) {
-    recent = recent.filter(x => x !== id);
-    recent.unshift(id);
-    if (recent.length > 12) recent = recent.slice(0, 12);
-    saveLocalState();
-    renderRecent();
-  }
-
-  function classifyGame(game) {
-    const name = (game.name || "").toLowerCase();
-    const tags = (game.tags || []).join(" ").toLowerCase();
-    const haystack = name + " " + tags;
-
-    const isBasketball = /basketball|hoops|bball/.test(haystack);
-    const isSoccer = /soccer|football \(soccer\)|futbol|penalty/.test(haystack);
-    const isNFL = /nfl|american football|retro bowl|touchdown|gridiron/.test(haystack);
-    const isHockey = /hockey/.test(haystack);
-    const isRacing = /race|racing|car|driving|drift|kart|drive|rider|bike|moto/.test(haystack);
-    const isFighting = /fight|fighting|brawl|boxing|punch|arena|warrior/.test(haystack);
-    const isAthletics = /run|runner|track|dash|sprint|jump|hurdle|marathon/.test(haystack);
-
-    return {
-      basketball: isBasketball,
-      soccer: isSoccer,
-      nfl: isNFL,
-      hockey: isHockey,
-      racing: isRacing,
-      fighting: isFighting,
-      athletics: isAthletics
-    };
-  }
-
-  function genreEmoji(game) {
-    const tags = (game.tags || []).map(t => t.toLowerCase());
-    if (tags.includes("puzzle")) return "🧠";
-    if (tags.includes("shooter") || tags.includes("fps")) return "🔫";
-    if (tags.includes("driving") || tags.includes("racing")) return "🚗";
-    if (tags.includes("sandbox")) return "🧪";
-    if (tags.includes("strategy") || tags.includes("tower defense")) return "♟️";
-    if (tags.includes("creative")) return "🎨";
-    if (tags.includes("physics")) return "🧲";
-    if (tags.includes("idle") || tags.includes("clicker")) return "🖱️";
-    if (tags.includes("simulation")) return "🧬";
-    if (tags.includes("adventure")) return "🗺️";
-    return "🎮";
-  }
-
-  function buildGameUrl(game) {
-    if (game.url && game.url.startsWith("http")) return game.url;
-    return GAME_BASE + game.url + "/";
-  }
-
-  function buildImageUrl(game) {
-    if (!game.image) return IMAGE_BASE + "default.png";
-    return IMAGE_BASE + game.image;
-  }
-
-  function getGameId(game) {
-    return game.url || game.name;
-  }
-
-  function getPlays(game) {
-    let base = 0;
-    if (game.new) base += 50;
-    base += (game.name || "").length;
-    return base;
-  }
-
-  function createGameTile(game, categoryEmoji) {
-    const id = getGameId(game);
-
-    const gridItem = document.createElement("div");
-    gridItem.className = "thumb";
-    gridItem.dataset.gameId = id.toString();
-    gridItem.title = game.gamedesc || "";
-
-    const img = document.createElement("img");
-    img.className = "game-thumb";
-    img.src = buildImageUrl(game);
-    img.alt = game.name || "Game";
-
-    const emojiSpan = document.createElement("span");
-    emojiSpan.className = "emoji";
-    emojiSpan.textContent = categoryEmoji || genreEmoji(game);
-
-    const titleWrap = document.createElement("div");
-    titleWrap.className = "title-wrap";
-
-    const titleLine = document.createElement("div");
-
-    const titleSpan = document.createElement("span");
-    titleSpan.className = "title";
-    titleSpan.textContent = game.name || "Untitled";
-
-    titleLine.appendChild(titleSpan);
-
-    if (game.new) {
-      const badge = document.createElement("span");
-      badge.className = "badge-new";
-      badge.textContent = "NEW";
-      titleLine.appendChild(badge);
-    }
-
-    const metaSpan = document.createElement("span");
-    metaSpan.className = "meta";
-    metaSpan.textContent = (game.tags || []).slice(0, 2).join(" • ");
-
-    const descSpan = document.createElement("span");
-    descSpan.className = "desc";
-    descSpan.textContent = game.gamedesc || "";
-
-    titleWrap.appendChild(titleLine);
-    titleWrap.appendChild(metaSpan);
-    titleWrap.appendChild(descSpan);
-
-    const fav = document.createElement("span");
-    fav.className = "fav-icon";
-    fav.innerHTML = "⭐";
-    fav.dataset.favId = id.toString();
-    if (isFavorite(id)) fav.classList.add("active");
-
-    fav.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleFavorite(id);
-    });
-
-    gridItem.appendChild(img);
-    gridItem.appendChild(emojiSpan);
-    gridItem.appendChild(titleWrap);
-    gridItem.appendChild(fav);
-
-    gridItem.addEventListener("click", () => openGame(game));
-
-    return gridItem;
-  }
-
-  function openGame(game) {
-    const url = buildGameUrl(game);
-    const img = buildImageUrl(game);
-    const title = game.name || "Game";
-    const id = getGameId(game);
-
-    gameFrame.src = "";
-    iframeLoader.style.display = "flex";
-    gameFrame.src = url;
-    gameTitleEl.textContent = title;
-    gameThumbEl.src = img;
-
-    overlay.style.display = "flex";
-    addRecent(id);
-  }
-
-  function closeGame() {
-    overlay.style.display = "none";
-    gameFrame.src = "";
-  }
-
-  function toggleFullscreen() {
-    const elem = document.getElementById("game-frame-wrapper");
-
-    if (!document.fullscreenElement) {
-      if (elem.requestFullscreen) elem.requestFullscreen();
-      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-    } else {
-      if (document.exitFullscreen) document.exitFullscreen();
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-      else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
-  }
-
-  closeBtn.addEventListener("click", closeGame);
-  fullscreenBtn.addEventListener("click", toggleFullscreen);
-
-  gameFrame.addEventListener("load", () => {
-    iframeLoader.style.display = "none";
-  });
-
-  function renderFavorites() {
-    favoritesGrid.innerHTML = "";
-    const favGames = allGames.filter(g => favorites.includes(getGameId(g)));
-    if (!favGames.length) {
-      favoritesEmpty.style.display = "block";
-      return;
-    }
-    favoritesEmpty.style.display = "none";
-    favGames.forEach(game => {
-      const flags = classifyGame(game);
-      const cat =
-        (flags.basketball && "basketball") ||
-        (flags.soccer && "soccer") ||
-        (flags.nfl && "nfl") ||
-        (flags.hockey && "hockey") ||
-        (flags.athletics && "athletics") ||
-        (flags.racing && "racing") ||
-        (flags.fighting && "fighting") ||
-        null;
-      const emoji = cat ? catEmoji[cat] : genreEmoji(game);
-      favoritesGrid.appendChild(createGameTile(game, emoji));
-    });
-  }
-
-  function renderRecent() {
-    recentGrid.innerHTML = "";
-    const recentGames = recent
-      .map(id => allGames.find(g => getGameId(g) === id))
-      .filter(Boolean);
-    if (!recentGames.length) {
-      recentEmpty.style.display = "block";
-      return;
-    }
-    recentEmpty.style.display = "none";
-    recentGames.forEach(game => {
-      const flags = classifyGame(game);
-      const cat =
-        (flags.basketball && "basketball") ||
-        (flags.soccer && "soccer") ||
-        (flags.nfl && "nfl") ||
-        (flags.hockey && "hockey") ||
-        (flags.athletics && "athletics") ||
-        (flags.racing && "racing") ||
-        (flags.fighting && "fighting") ||
-        null;
-      const emoji = cat ? catEmoji[cat] : genreEmoji(game);
-      recentGrid.appendChild(createGameTile(game, emoji));
-    });
-  }
-
-  function applySearchFilter() {
-    const q = searchInput.value.trim().toLowerCase();
-    const tiles = document.querySelectorAll(".thumb");
-    tiles.forEach(tile => {
-      const id = tile.dataset.gameId;
-      const game = allGames.find(g => getGameId(g) === id);
-      if (!game) return;
-      const text = (game.name + " " + (game.tags || []).join(" ") + " " + (game.gamedesc || "")).toLowerCase();
-      tile.style.display = text.includes(q) ? "" : "none";
-    });
-  }
-
-  searchInput.addEventListener("input", applySearchFilter);
-
-  function initTheme() {
-    const saved = localStorage.getItem("theme") || "dark";
-    if (saved === "light") document.body.classList.add("light");
-  }
-
-  function toggleTheme() {
-    document.body.classList.toggle("light");
-    const mode = document.body.classList.contains("light") ? "light" : "dark";
-    localStorage.setItem("theme", mode);
-  }
-
-  themeToggle.addEventListener("click", toggleTheme);
-
-  async function init() {
-    initTheme();
-    loadLocalState();
-
-    try {
-      const res = await fetch(GAMES_JSON_URL);
-      const data = await res.json();
-      allGames = Array.isArray(data) ? data : data.games || [];
-
-      const sortedByPlays = [...allGames].sort((a, b) => getPlays(b) - getPlays(a));
-      const popularGrid = document.getElementById("popular-grid");
-      const usedInPopular = new Set();
-
-      sortedByPlays.forEach(game => {
-        if (popularGrid.children.length >= 20) return;
-        const id = getGameId(game);
-        if (usedInPopular.has(id)) return;
-        usedInPopular.add(id);
-        const emoji = genreEmoji(game);
-        const tile = createGameTile(game, emoji);
-        popularGrid.appendChild(tile);
-      });
-
-      allGames.forEach(game => {
-        const flags = classifyGame(game);
-        Object.keys(flags).forEach(cat => {
-          if (!flags[cat]) return;
-          const grid = catGrids[cat];
-          if (!grid) return;
-          const tile = createGameTile(game, catEmoji[cat] || genreEmoji(game));
-          grid.appendChild(tile);
-        });
-      });
-
-      renderFavorites();
-      renderRecent();
-    } catch (err) {
-      console.error("Failed to load games.json", err);
-    } finally {
-      globalLoader.style.display = "none";
-    }
-  }
-
-  init();
+init();
 </script>
 </body>
 </html>
