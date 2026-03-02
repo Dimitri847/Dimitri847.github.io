@@ -5,7 +5,7 @@
 <title>Unblopcked Sports Games</title>
 
 <style>
-/* -------------------- GLOBAL -------------------- */
+/* GLOBAL */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -27,31 +27,31 @@ p {
   margin: 0 auto 30px;
 }
 
-/* -------------------- NAVIGATION -------------------- */
-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+/* CATEGORY GRID (BIG BUTTONS) */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  padding: 20px 40px;
 }
 
-.nav-item {
+.category {
   background: rgba(255,255,255,0.1);
-  padding: 15px 30px;
-  border-radius: 50px;
-  font-size: 1.4rem;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 2.2rem;
   text-decoration: none;
   color: white;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
-.nav-item:hover {
-  transform: scale(1.15);
+.category:hover {
+  transform: scale(1.08);
   background: rgba(255,255,255,0.2);
 }
 
-/* -------------------- CATEGORY SECTIONS -------------------- */
+/* SECTION BLOCKS */
 .section {
   width: 100%;
   padding: 40px 0;
@@ -64,7 +64,7 @@ nav {
   margin-bottom: 10px;
 }
 
-/* -------------------- THUMBNAIL GRID -------------------- */
+/* THUMBNAIL GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -88,62 +88,28 @@ nav {
   transform: scale(1.12);
   box-shadow: 0 0 20px rgba(255,255,255,0.4);
 }
-
-/* -------------------- CATEGORY BLOCKS -------------------- */
-.category-blocks {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 25px;
-  padding: 20px 40px;
-}
-
-.category-block {
-  background: rgba(255,255,255,0.1);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  font-size: 2rem;
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.category-block:hover {
-  transform: scale(1.05);
-  background: rgba(255,255,255,0.2);
-}
 </style>
 </head>
 
 <body>
 
-<!-- -------------------- HEADER -------------------- -->
+<!-- HEADER -->
 <h1>Unblopcked Sports Games</h1>
 <p>Welcome to the ultimate hub for fast, smooth, unblocked sports and action games. Choose a category below and jump straight into the action.</p>
 
-<!-- -------------------- CATEGORY BUTTONS -------------------- -->
-<nav>
-  <a class="nav-item" href="#popular">🔥 Popular Games</a>
-  <a class="nav-item" href="#basketball">🏀 Basketball</a>
-  <a class="nav-item" href="#soccer">⚽ Soccer</a>
-  <a class="nav-item" href="#nfl">🏈 NFL</a>
-  <a class="nav-item" href="#hockey">🏒 Hockey</a>
-  <a class="nav-item" href="#athletics">🏃 Athletics</a>
-  <a class="nav-item" href="#racing">🏎️ Racing Games</a>
-  <a class="nav-item" href="#fighting">🥊 Fighting Games</a>
-</nav>
-
-<!-- -------------------- CATEGORY BLOCKS -------------------- -->
-<div class="category-blocks">
-  <div class="category-block">🔥 Popular Games</div>
-  <div class="category-block">🏀 Basketball</div>
-  <div class="category-block">⚽ Soccer</div>
-  <div class="category-block">🏈 NFL</div>
-  <div class="category-block">🏒 Hockey</div>
-  <div class="category-block">🏃 Athletics</div>
-  <div class="category-block">🏎️ Racing Games</div>
-  <div class="category-block">🥊 Fighting Games</div>
+<!-- BIG CATEGORY BUTTONS -->
+<div class="category-grid">
+  <a class="category" href="#popular">🔥 Popular Games</a>
+  <a class="category" href="#basketball">🏀 Basketball</a>
+  <a class="category" href="#soccer">⚽ Soccer</a>
+  <a class="category" href="#nfl">🏈 NFL</a>
+  <a class="category" href="#hockey">🏒 Hockey</a>
+  <a class="category" href="#athletics">🏃 Athletics</a>
+  <a class="category" href="#racing">🏎️ Racing Games</a>
+  <a class="category" href="#fighting">🥊 Fighting Games</a>
 </div>
 
-<!-- -------------------- POPULAR GAMES -------------------- -->
+<!-- POPULAR -->
 <div class="section" id="popular">
   <h2>🔥 Popular Games</h2>
   <div class="grid">
@@ -156,7 +122,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- BASKETBALL -------------------- -->
+<!-- BASKETBALL -->
 <div class="section" id="basketball">
   <h2>🏀 Basketball</h2>
   <div class="grid">
@@ -169,7 +135,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- SOCCER -------------------- -->
+<!-- SOCCER -->
 <div class="section" id="soccer">
   <h2>⚽ Soccer</h2>
   <div class="grid">
@@ -182,7 +148,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- NFL -------------------- -->
+<!-- NFL -->
 <div class="section" id="nfl">
   <h2>🏈 NFL</h2>
   <div class="grid">
@@ -195,7 +161,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- HOCKEY -------------------- -->
+<!-- HOCKEY -->
 <div class="section" id="hockey">
   <h2>🏒 Hockey</h2>
   <div class="grid">
@@ -208,7 +174,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- ATHLETICS -------------------- -->
+<!-- ATHLETICS -->
 <div class="section" id="athletics">
   <h2>🏃 Athletics</h2>
   <div class="grid">
@@ -221,7 +187,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- RACING -------------------- -->
+<!-- RACING -->
 <div class="section" id="racing">
   <h2>🏎️ Racing Games</h2>
   <div class="grid">
@@ -234,7 +200,7 @@ nav {
   </div>
 </div>
 
-<!-- -------------------- FIGHTING -------------------- -->
+<!-- FIGHTING -->
 <div class="section" id="fighting">
   <h2>🥊 Fighting Games</h2>
   <div class="grid">
